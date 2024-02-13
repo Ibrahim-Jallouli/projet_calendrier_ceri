@@ -1,4 +1,4 @@
-package com.example.M1IHM;
+package com.example.m1prototypage.controller;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
