@@ -1,5 +1,6 @@
 package com.example.m1prototypage;
 
+import com.example.m1prototypage.utils.DataSource;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -17,6 +18,11 @@ public class HelloApplication extends Application {
         stage.show();
     }
 
+    @Override
+    public void init() throws Exception {
+        System.out.println("Initializing application...");
+        DataSource.getInstance();
+    }
     public static void main(String[] args) {
         launch();
     }

@@ -1,6 +1,7 @@
 module com.example.m1prototypage {
     requires javafx.controls;
     requires javafx.fxml;
+    requires java.sql;
 
 
     opens com.example.m1prototypage to javafx.fxml;
