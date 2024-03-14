@@ -1,0 +1,6 @@
+input.csv contains dtstart	dtend	uid	description	salle
+output.csv contains dtstart	dtend	uid	location	Matiere	Enseignants	Type	Memo
+
+
+change all "é" to "e"
+change all "è" to "e"
