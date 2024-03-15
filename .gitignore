@@ -4,3 +4,5 @@
 
 # Ignore Maven target directory
 target/
+out/
+src/main/resources/META-INF/
