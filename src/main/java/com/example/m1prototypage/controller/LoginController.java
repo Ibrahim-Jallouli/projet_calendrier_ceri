@@ -1,15 +1,21 @@
 package com.example.m1prototypage.controller;
 
 import com.example.m1prototypage.HelloApplication;
+import com.example.m1prototypage.entities.User;
+import com.example.m1prototypage.services.UserService;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.PasswordField;
+import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class LoginController {
 
@@ -17,34 +23,37 @@ public class LoginController {
     private Button loginButton;
 
     @FXML
+    private TextField usernameField;
+
+    @FXML
+    private PasswordField passwordField;
+
+    UserService userService = new UserService();
+
+
+    @FXML
     private void handleLoginButtonAction(ActionEvent event) throws IOException {
-       /* // Charger le fichier FXML de l'emploi du temps
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/GUI/calendar-view.fxml"));
-        Parent emploiDuTempsParent = loader.load();
+        String username = usernameField.getText();
+        String password = passwordField.getText();
+        User user = userService.getUser(username);
+        // Vérifier les identifiants
 
-        // Obtenir la scène actuelle
-        Scene currentScene = loginButton.getScene();
+        if (user.getPassword().equals(password)) {
+                System.out.println("identifiants corrects");
+                // Rediriger vers l'emploi du temps
+                openCalendarView();
+                return;
+        }
 
-        // Changer la racine de la scène pour afficher la nouvelle vue (l'emploi du temps)
-        currentScene.setRoot(emploiDuTempsParent);*/
+        // Afficher un message d'erreur si les identifiants sont incorrects
+        System.out.println("Identifiants incorrects");
+        // Vous pouvez afficher un message d'erreur à l'utilisateur ici
 
-        // Charger le fichier FXML de l'emploi du temps avec le controller approprié
-        FXMLLoader loader = new FXMLLoader(CalendarController.class.getResource("GUI/calendar-view.fxml"));
-        Parent emploiDuTempsParent = loader.load();
+    }
 
-        // Obtenir la scène actuelle à partir du bouton de connexion
-        Scene currentScene = loginButton.getScene();
-
-        // Créer une nouvelle scène avec le parent de l'emploi du temps
-        Scene calendarScene = new Scene(emploiDuTempsParent);
-
-        // Obtenir la fenêtre (stage) à partir de la scène actuelle
-        Stage primaryStage = (Stage) currentScene.getWindow();
-
-        // Changer de scène (aller à l'emploi du temps)
-        primaryStage.setScene(calendarScene);
-        primaryStage.show();
-
-
+    private void openCalendarView() throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/m1prototypage/GUI/calendar-view.fxml"));
+        Stage primaryStage = (Stage) loginButton.getScene().getWindow();
+        primaryStage.setScene(new Scene(loader.load()));
     }
 }

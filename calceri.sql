@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.1.1
+-- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Generation Time: Mar 15, 2024 at 07:19 PM
--- Server version: 10.4.22-MariaDB
--- PHP Version: 8.1.2
+-- Hôte : 127.0.0.1
+-- Généré le : lun. 18 mars 2024 à 15:40
+-- Version du serveur : 10.4.32-MariaDB
+-- Version de PHP : 8.0.30
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,76 +18,77 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `calceri`
+-- Base de données : `calceri`
 --
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `enseignant`
+-- Structure de la table `enseignant`
 --
 
 CREATE TABLE `enseignant` (
   `id` int(11) NOT NULL,
   `username` varchar(511) DEFAULT NULL,
-  `password` varchar(255) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+  `password` varchar(255) DEFAULT NULL,
+  `email` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `enseignant`
+-- Déchargement des données de la table `enseignant`
 --
 
-INSERT INTO `enseignant` (`id`, `username`, `password`) VALUES
-(1, 'Enseignants', NULL),
-(2, 'FREDOUILLE Corinne', NULL),
-(3, 'PUY CAZCARRA Emmanuel', NULL),
-(4, 'NABITZ Sophie', NULL),
-(5, 'FREDOUILLE Corinne, JABAIAN Bassam', NULL),
-(6, 'JABAIAN Bassam', NULL),
-(7, 'REY Carole', NULL),
-(8, 'MARTIN Yannis', NULL),
-(9, 'MARTIN Yannis, PUY CAZCARRA Emmanuel', NULL),
-(10, 'COSTA Jean-pierre', NULL),
-(11, 'LABRAK Yanis', NULL),
-(12, 'PELERIN Aurelien', NULL),
-(13, 'ROUVIER Mickael', NULL),
-(14, 'HADDAD Majed, VERNET Mathilde', NULL),
-(15, 'BROCHARD Marc', NULL),
-(16, 'LEFEVRE Fabrice', NULL),
-(17, 'BENSLIMANE Abderrahim, BONASTRE Jean-Francois, FIGUEIREDO Rosa, FREDOUILLE Corinne, GOZLAN Philippe, HADDAD Majed, HAYEL Yezekael, HUET Stephane, JIMENEZ Tania, JOURLIN Pierre, LEFEVRE Fabrice, MORCHID Mohamed, NOCERA Pascal, PUY CAZCARRA Emmanuel, TORRES MORENO Juan manuel, VERNET Mathilde', NULL),
-(18, 'MORCHID Mohamed', NULL),
-(19, 'FERREIRA Emmanuel', NULL),
-(20, 'SALAS Daniel', NULL),
-(21, 'BONNEFOY Ludovic', NULL),
-(22, 'RONDIN Lilian', NULL),
-(23, 'CARIAS Patrick', NULL),
-(24, 'CECILLON Noe', NULL),
-(25, 'AMALVY Arthur', NULL),
-(26, '', NULL),
-(27, 'ATER MASTER INFO', NULL),
-(28, 'HUET Stephane', NULL),
-(29, 'DHAUSSY Timothee', NULL),
-(30, 'BENSLIMANE Abderrahim, LABATUT Vincent, ROUVIER Mickael', NULL),
-(31, 'FIGUEIREDO Rosa, VERNET Mathilde', NULL),
-(32, 'BENSLIMANE Abderrahim, FIGUEIREDO Rosa, HUET Stephane, JABAIAN Bassam, LABATUT Vincent, MATROUF Driss, ROUVIER Mickael, SPRIET Thierry', NULL),
-(33, 'BENSLIMANE Abderrahim, COSTA Jean-pierre, DE PELLEGRINI Francesco, ELAZOUZI Rachid, ESTEVE Yannick, FIGUEIREDO Rosa, FREDOUILLE Corinne, GILLES Philippe, GOZLAN Philippe, GUEYE Serigne, HADDAD Majed, HAYEL Yezekael, HUET Stephane, JABAIAN Bassam, JOURLIN Pierre, LABATUT Vincent, LEFEVRE Fabrice, MATROUF Driss, NOCERA Pascal, ROUVIER Mickael, SPRIET Thierry, TORRES MORENO Juan manuel, VERNET Mathilde, ZHOU Fen', NULL),
-(34, 'BENSLIMANE Abderrahim, ROUVIER Mickael', NULL),
-(35, 'BEILLON Jennifer, HUET Stephane', NULL),
-(36, 'FIGUEIREDO Rosa', NULL),
-(37, 'LEFEVRE Fabrice, TORRES MORENO Juan manuel', NULL),
-(38, 'HADDAD Majed, LEFEVRE Fabrice', NULL),
-(39, 'LABATUT Vincent', NULL),
-(40, 'GUEYE Serigne', NULL),
-(41, 'MDHAFFAR Salima', NULL),
-(42, 'VERNET Mathilde', NULL),
-(43, 'TORRES MORENO Juan manuel', NULL),
-(44, 'HAYEL Yezekael', NULL),
-(45, 'ESTEVE Yannick', NULL);
+INSERT INTO `enseignant` (`id`, `username`, `password`, `email`) VALUES
+(1, 'Enseignants', NULL, ''),
+(2, 'FREDOUILLE Corinne', NULL, ''),
+(3, 'PUY CAZCARRA Emmanuel', NULL, ''),
+(4, 'NABITZ Sophie', NULL, ''),
+(5, 'FREDOUILLE Corinne, JABAIAN Bassam', NULL, ''),
+(6, 'JABAIAN Bassam', NULL, ''),
+(7, 'REY Carole', NULL, ''),
+(8, 'MARTIN Yannis', NULL, ''),
+(9, 'MARTIN Yannis, PUY CAZCARRA Emmanuel', NULL, ''),
+(10, 'COSTA Jean-pierre', NULL, ''),
+(11, 'LABRAK Yanis', NULL, ''),
+(12, 'PELERIN Aurelien', NULL, ''),
+(13, 'ROUVIER Mickael', NULL, ''),
+(14, 'HADDAD Majed, VERNET Mathilde', NULL, ''),
+(15, 'BROCHARD Marc', NULL, ''),
+(16, 'LEFEVRE Fabrice', NULL, ''),
+(17, 'BENSLIMANE Abderrahim, BONASTRE Jean-Francois, FIGUEIREDO Rosa, FREDOUILLE Corinne, GOZLAN Philippe, HADDAD Majed, HAYEL Yezekael, HUET Stephane, JIMENEZ Tania, JOURLIN Pierre, LEFEVRE Fabrice, MORCHID Mohamed, NOCERA Pascal, PUY CAZCARRA Emmanuel, TORRES MORENO Juan manuel, VERNET Mathilde', NULL, ''),
+(18, 'MORCHID Mohamed', NULL, ''),
+(19, 'FERREIRA Emmanuel', NULL, ''),
+(20, 'SALAS Daniel', NULL, ''),
+(21, 'BONNEFOY Ludovic', NULL, ''),
+(22, 'RONDIN Lilian', NULL, ''),
+(23, 'CARIAS Patrick', NULL, ''),
+(24, 'CECILLON Noe', NULL, ''),
+(25, 'AMALVY Arthur', NULL, ''),
+(26, '', NULL, ''),
+(27, 'ATER MASTER INFO', NULL, ''),
+(28, 'HUET Stephane', NULL, ''),
+(29, 'DHAUSSY Timothee', NULL, ''),
+(30, 'BENSLIMANE Abderrahim, LABATUT Vincent, ROUVIER Mickael', NULL, ''),
+(31, 'FIGUEIREDO Rosa, VERNET Mathilde', NULL, ''),
+(32, 'BENSLIMANE Abderrahim, FIGUEIREDO Rosa, HUET Stephane, JABAIAN Bassam, LABATUT Vincent, MATROUF Driss, ROUVIER Mickael, SPRIET Thierry', NULL, ''),
+(33, 'BENSLIMANE Abderrahim, COSTA Jean-pierre, DE PELLEGRINI Francesco, ELAZOUZI Rachid, ESTEVE Yannick, FIGUEIREDO Rosa, FREDOUILLE Corinne, GILLES Philippe, GOZLAN Philippe, GUEYE Serigne, HADDAD Majed, HAYEL Yezekael, HUET Stephane, JABAIAN Bassam, JOURLIN Pierre, LABATUT Vincent, LEFEVRE Fabrice, MATROUF Driss, NOCERA Pascal, ROUVIER Mickael, SPRIET Thierry, TORRES MORENO Juan manuel, VERNET Mathilde, ZHOU Fen', NULL, ''),
+(34, 'BENSLIMANE Abderrahim, ROUVIER Mickael', NULL, ''),
+(35, 'BEILLON Jennifer, HUET Stephane', NULL, ''),
+(36, 'FIGUEIREDO Rosa', NULL, ''),
+(37, 'LEFEVRE Fabrice, TORRES MORENO Juan manuel', NULL, ''),
+(38, 'HADDAD Majed, LEFEVRE Fabrice', NULL, ''),
+(39, 'LABATUT Vincent', NULL, ''),
+(40, 'GUEYE Serigne', NULL, ''),
+(41, 'MDHAFFAR Salima', NULL, ''),
+(42, 'VERNET Mathilde', NULL, ''),
+(43, 'TORRES MORENO Juan manuel', NULL, ''),
+(44, 'HAYEL Yezekael', NULL, ''),
+(45, 'ESTEVE Yannick', NULL, '');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `etudiant`
+-- Structure de la table `etudiant`
 --
 
 CREATE TABLE `etudiant` (
@@ -95,21 +96,28 @@ CREATE TABLE `etudiant` (
   `username` varchar(50) DEFAULT NULL,
   `password` varchar(255) DEFAULT NULL,
   `formation_id` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Déchargement des données de la table `etudiant`
+--
+
+INSERT INTO `etudiant` (`id`, `username`, `password`, `formation_id`) VALUES
+(1, 'uapv2400431', 'Ibrahim', 1);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `formation`
+-- Structure de la table `formation`
 --
 
 CREATE TABLE `formation` (
   `id` int(11) NOT NULL,
   `nom` varchar(255) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `formation`
+-- Déchargement des données de la table `formation`
 --
 
 INSERT INTO `formation` (`id`, `nom`) VALUES
@@ -121,16 +129,16 @@ INSERT INTO `formation` (`id`, `nom`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `matiere`
+-- Structure de la table `matiere`
 --
 
 CREATE TABLE `matiere` (
   `id` int(11) NOT NULL,
   `nom` varchar(255) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `matiere`
+-- Déchargement des données de la table `matiere`
 --
 
 INSERT INTO `matiere` (`id`, `nom`) VALUES
@@ -170,16 +178,16 @@ INSERT INTO `matiere` (`id`, `nom`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `memo`
+-- Structure de la table `memo`
 --
 
 CREATE TABLE `memo` (
   `id` int(11) NOT NULL,
   `description` text DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `memo`
+-- Déchargement des données de la table `memo`
 --
 
 INSERT INTO `memo` (`id`, `description`) VALUES
@@ -227,17 +235,17 @@ INSERT INTO `memo` (`id`, `description`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `salle`
+-- Structure de la table `salle`
 --
 
 CREATE TABLE `salle` (
   `id` int(11) NOT NULL,
   `nom` varchar(255) DEFAULT NULL,
   `disponible` tinyint(1) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `salle`
+-- Déchargement des données de la table `salle`
 --
 
 INSERT INTO `salle` (`id`, `nom`, `disponible`) VALUES
@@ -280,7 +288,7 @@ INSERT INTO `salle` (`id`, `nom`, `disponible`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `seance`
+-- Structure de la table `seance`
 --
 
 CREATE TABLE `seance` (
@@ -293,10 +301,10 @@ CREATE TABLE `seance` (
   `formation_id` int(11) DEFAULT NULL,
   `type_id` int(11) DEFAULT NULL,
   `memo_id` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `seance`
+-- Déchargement des données de la table `seance`
 --
 
 INSERT INTO `seance` (`uid`, `dtStart`, `dtEnd`, `matiere_id`, `enseignant_id`, `salle_id`, `formation_id`, `type_id`, `memo_id`) VALUES
@@ -1434,16 +1442,16 @@ INSERT INTO `seance` (`uid`, `dtStart`, `dtEnd`, `matiere_id`, `enseignant_id`, 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `type`
+-- Structure de la table `type`
 --
 
 CREATE TABLE `type` (
   `id` int(11) NOT NULL,
   `name` varchar(50) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `type`
+-- Déchargement des données de la table `type`
 --
 
 INSERT INTO `type` (`id`, `name`) VALUES
@@ -1459,48 +1467,48 @@ INSERT INTO `type` (`id`, `name`) VALUES
 (10, 'Conference');
 
 --
--- Indexes for dumped tables
+-- Index pour les tables déchargées
 --
 
 --
--- Indexes for table `enseignant`
+-- Index pour la table `enseignant`
 --
 ALTER TABLE `enseignant`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `etudiant`
+-- Index pour la table `etudiant`
 --
 ALTER TABLE `etudiant`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `formation_id` (`formation_id`);
+  ADD KEY `fk_etudiant_formation` (`formation_id`);
 
 --
--- Indexes for table `formation`
+-- Index pour la table `formation`
 --
 ALTER TABLE `formation`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `matiere`
+-- Index pour la table `matiere`
 --
 ALTER TABLE `matiere`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `memo`
+-- Index pour la table `memo`
 --
 ALTER TABLE `memo`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `salle`
+-- Index pour la table `salle`
 --
 ALTER TABLE `salle`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `seance`
+-- Index pour la table `seance`
 --
 ALTER TABLE `seance`
   ADD PRIMARY KEY (`uid`),
@@ -1512,63 +1520,69 @@ ALTER TABLE `seance`
   ADD KEY `fk_type_id` (`type_id`);
 
 --
--- Indexes for table `type`
+-- Index pour la table `type`
 --
 ALTER TABLE `type`
   ADD PRIMARY KEY (`id`);
 
 --
--- AUTO_INCREMENT for dumped tables
+-- AUTO_INCREMENT pour les tables déchargées
 --
 
 --
--- AUTO_INCREMENT for table `enseignant`
+-- AUTO_INCREMENT pour la table `enseignant`
 --
 ALTER TABLE `enseignant`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=46;
 
 --
--- AUTO_INCREMENT for table `etudiant`
+-- AUTO_INCREMENT pour la table `etudiant`
 --
 ALTER TABLE `etudiant`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
--- AUTO_INCREMENT for table `formation`
+-- AUTO_INCREMENT pour la table `formation`
 --
 ALTER TABLE `formation`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
--- AUTO_INCREMENT for table `matiere`
+-- AUTO_INCREMENT pour la table `matiere`
 --
 ALTER TABLE `matiere`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
 
 --
--- AUTO_INCREMENT for table `memo`
+-- AUTO_INCREMENT pour la table `memo`
 --
 ALTER TABLE `memo`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
 
 --
--- AUTO_INCREMENT for table `salle`
+-- AUTO_INCREMENT pour la table `salle`
 --
 ALTER TABLE `salle`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
 
 --
--- AUTO_INCREMENT for table `type`
+-- AUTO_INCREMENT pour la table `type`
 --
 ALTER TABLE `type`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
--- Constraints for dumped tables
+-- Contraintes pour les tables déchargées
 --
 
 --
--- Constraints for table `seance`
+-- Contraintes pour la table `etudiant`
+--
+ALTER TABLE `etudiant`
+  ADD CONSTRAINT `fk_etudiant_formation` FOREIGN KEY (`formation_id`) REFERENCES `formation` (`id`);
+
+--
+-- Contraintes pour la table `seance`
 --
 ALTER TABLE `seance`
   ADD CONSTRAINT `fk_type_id` FOREIGN KEY (`type_id`) REFERENCES `type` (`id`),

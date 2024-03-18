@@ -12,4 +12,9 @@ public class Etudiant extends User{
         this.formation = formation;
     }
 
+    public Etudiant(int id, String username, Formation formation) {
+        super(id, username);
+        this.formation = formation;
+    }
+
 }

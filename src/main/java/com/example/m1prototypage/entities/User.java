@@ -1,9 +1,15 @@
 package com.example.m1prototypage.entities;
 
+import com.example.m1prototypage.utils.DataSource;
+
+import java.sql.*;
+
+
 public class User {
     private int id;
     private String username;
     private String password;
+
 
     public User() {
     }
@@ -12,6 +18,12 @@ public class User {
         this.username = username;
         this.password = password;
     }
+
+    public User(int id, String username) {
+        this.id = id;
+        this.username = username;
+    }
+
 
     public int getId() {
         return id;
@@ -31,5 +43,7 @@ public class User {
     public void setPassword(String password) {
         this.password = password;
     }
+
+
 
 }
