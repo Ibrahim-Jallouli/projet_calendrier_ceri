@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<?import javafx.collections.FXCollections?>
+<?import java.lang.String?>
+<?import javafx.scene.layout.GridPane?>
+<VBox xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.m1prototypage.controller.CalendarController"
+      prefHeight="600.0" prefWidth="800.0" spacing="10.0" style="-fx-background-color: #F5F5F5; -fx-padding: 10px;">
+
+    <!-- Barre de recherche -->
+    <HBox spacing="10.0" style="-fx-alignment: CENTER;">
+        <Label text="Recherche :" />
+        <ComboBox fx:id="searchTypeComboBox" prefWidth="150.0">
+            <items>
+                <FXCollections fx:factory="observableArrayList">
+                    <String fx:value="Formation" />
+                    <String fx:value="Enseignant" />
+                    <String fx:value="Salle" />
+                </FXCollections>
+            </items>
+        </ComboBox>
+        <TextField fx:id="searchField" promptText="Entrez votre recherche" />
+        <Button text="Rechercher" />
+    </HBox>
+
+    <!-- Options de filtrage -->
+    <HBox spacing="10.0" style="-fx-alignment: CENTER;">
+        <Label text="Filtrer par :" />
+        <ComboBox fx:id="filterComboBox" prefWidth="150.0">
+            <items>
+                <FXCollections fx:factory="observableArrayList">
+                    <String fx:value="Semaine" />
+                    <String fx:value="Mois" />
+                    <String fx:value="Jour" />
+                </FXCollections>
+            </items>
+        </ComboBox>
+        <Button text="Appliquer" />
+    </HBox>
+
+    <!-- Contenu principal de l'emploi du temps -->
+    <VBox alignment="CENTER" spacing="10.0" style="-fx-background-color: #FFFFFF; -fx-padding: 10px;">
+        <Label text="Votre emploi du temps" style="-fx-font-size: 18pt; -fx-font-weight: bold;" />
+        <!--  les éléments de l emploi du temps -->
+
+        <GridPane fx:id="scheduleGrid" alignment="CENTER" hgap="10" vgap="10" />
+
+    </VBox>
+
+
+
+</VBox>
