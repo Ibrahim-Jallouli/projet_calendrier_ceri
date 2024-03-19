@@ -1,23 +1,22 @@
 package com.example.m1prototypage.controller;
 
-import com.example.m1prototypage.HelloApplication;
 import com.example.m1prototypage.entities.User;
 import com.example.m1prototypage.services.UserService;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
+import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
+import java.net.URL;
+import java.util.ResourceBundle;
 
-public class LoginController {
+public class LoginController implements Initializable {
 
     @FXML
     private Button loginButton;
@@ -28,32 +27,61 @@ public class LoginController {
     @FXML
     private PasswordField passwordField;
 
-    UserService userService = new UserService();
+    @FXML
+    private Label usernameErrorLabel;
 
+    @FXML
+    private Label passwordErrorLabel;
+
+    @FXML
+    private Label loginErrorLabel;
+
+    UserService userService = new UserService();
 
     @FXML
     private void handleLoginButtonAction(ActionEvent event) throws IOException {
-        String username = usernameField.getText();
-        String password = passwordField.getText();
-        User user = userService.getUser(username);
-        // Vérifier les identifiants
+        // Clear previous error messages
+        usernameErrorLabel.setText("");
+        passwordErrorLabel.setText("");
+        loginErrorLabel.setText("");
 
-        if (user.getPassword().equals(password)) {
-                System.out.println("identifiants corrects");
-                // Rediriger vers l'emploi du temps
-                openCalendarView();
-                return;
+        // Input validation
+        boolean inputValid = true;
+        if (usernameField.getText().isEmpty()) {
+            usernameErrorLabel.setText("Le champ Identifiant est vide.");
+            inputValid = false;
         }
 
-        // Afficher un message d'erreur si les identifiants sont incorrects
-        System.out.println("Identifiants incorrects");
-        // Vous pouvez afficher un message d'erreur à l'utilisateur ici
+        if (passwordField.getText().isEmpty()) {
+            passwordErrorLabel.setText("Le champ Mot de passe est vide.");
+            inputValid = false;
+        }
 
+        if (!inputValid) {
+            return;
+        }
+
+        // Attempt to log in
+        User user = userService.getUser(usernameField.getText());
+        if (user != null && user.getPassword().equals(passwordField.getText())) {
+            System.out.println("Identifiants corrects");
+            openCalendarView();
+        } else {
+            System.out.println("Identifiants incorrects");
+            loginErrorLabel.setText("Identifiant ou mot de passe incorrect.");
+        }
     }
 
     private void openCalendarView() throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/m1prototypage/GUI/calendar-view.fxml"));
-        Stage primaryStage = (Stage) loginButton.getScene().getWindow();
-        primaryStage.setScene(new Scene(loader.load()));
+        Stage stage = (Stage) loginButton.getScene().getWindow();
+        stage.setScene(new Scene(loader.load()));
+    }
+
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        usernameField.setText("uapv2400431");
+        passwordField.setText("Ibrahim");
     }
 }

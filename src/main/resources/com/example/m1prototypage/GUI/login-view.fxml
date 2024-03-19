@@ -8,14 +8,14 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
-
 <?import javafx.scene.layout.StackPane?>
 <StackPane prefHeight="490.0" prefWidth="550.0" xmlns:fx="http://javafx.com/fxml" fx:controller="com.example.m1prototypage.controller.LoginController">
-
     <children>
         <VBox alignment="CENTER" layoutX="66.0" layoutY="53.0" maxHeight="400.0" maxWidth="450.0" spacing="10.0" style="-fx-border-color: black; -fx-border-radius: 5; -fx-background-color: #EFEFEF;">
+            <padding>
+                <Insets bottom="10.0" left="35.0" right="36.0" top="10.0" />
+            </padding>
             <children>
-
                 <Label style="-fx-font-weight: bold;" text="Connexion">
                     <VBox.margin>
                         <Insets bottom="30.0" />
@@ -25,21 +25,26 @@
                     </font>
                 </Label>
                 <VBox spacing="5.0">
-                    <Label style="-fx-font-weight: bold;" text="Identifiant : ">
-                        <font>
-                            <Font size="13.0" />
-                        </font></Label>
-                    <TextField fx:id="usernameField" prefHeight="36.0" prefWidth="409.0" promptText="Entrez votre identifiant" />
-                    <VBox.margin>
-                        <Insets bottom="5.0" />
-                    </VBox.margin>
+                    <children>
+                        <Label style="-fx-font-weight: bold;" text="Identifiant : ">
+                            <font>
+                                <Font size="13.0" />
+                            </font>
+                        </Label>
+                        <TextField fx:id="usernameField" prefHeight="36.0" prefWidth="409.0" promptText="Entrez votre identifiant" />
+                        <Label fx:id="usernameErrorLabel" textFill="red" />
+                    </children>
                 </VBox>
                 <VBox spacing="5.0">
-                    <Label style="-fx-font-weight: bold;" text="Mot de passe : ">
-                        <font>
-                            <Font size="13.0" />
-                        </font></Label>
-                    <PasswordField fx:id="passwordField" prefHeight="36.0" prefWidth="409.0" promptText="Entrez votre mot de passe" />
+                    <children>
+                        <Label style="-fx-font-weight: bold;" text="Mot de passe : ">
+                            <font>
+                                <Font size="13.0" />
+                            </font>
+                        </Label>
+                        <PasswordField fx:id="passwordField" prefHeight="36.0" prefWidth="409.0" promptText="Entrez votre mot de passe" />
+                        <Label fx:id="passwordErrorLabel" textFill="red" />
+                    </children>
                 </VBox>
                 <Button onAction="#handleLoginButtonAction" fx:id="loginButton" mnemonicParsing="false" prefHeight="39.0" prefWidth="409.0" style="-fx-background-color: #27408B; -fx-font-weight: bold;" text="Se connecter" textFill="WHITE">
                     <VBox.margin>
@@ -47,13 +52,14 @@
                     </VBox.margin>
                     <font>
                         <Font size="15.0" />
-                    </font></Button>
+                    </font>
+                </Button>
+                <Label fx:id="loginErrorLabel" textFill="red" alignment="CENTER">
+                    <VBox.margin>
+                        <Insets top="10.0" />
+                    </VBox.margin>
+                </Label>
             </children>
-            <padding>
-                <Insets bottom="10.0" left="35.0" right="36.0" top="10.0" />
-            </padding>
         </VBox>
     </children>
-
-
 </StackPane>
