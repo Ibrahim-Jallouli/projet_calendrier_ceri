@@ -1,9 +1,6 @@
 package com.example.m1prototypage.services;
 
-import com.example.m1prototypage.entities.Enseignant;
-import com.example.m1prototypage.entities.Etudiant;
-import com.example.m1prototypage.entities.Formation;
-import com.example.m1prototypage.entities.User;
+import com.example.m1prototypage.entities.*;
 import com.example.m1prototypage.utils.DataSource;
 
 import java.sql.*;
@@ -43,4 +40,30 @@ public class UserService {
 
         return user;
     }
+
+    public User getEnseignantById(int id) {
+
+        User user = null;
+        try (PreparedStatement statement = cnx.prepareStatement("SELECT * FROM `Enseignant` WHERE id = ?")){
+
+            statement.setInt(1, id);
+
+            ResultSet resultSet = statement.executeQuery();
+
+            if (resultSet.next()) {
+                String nom = resultSet.getString("nom");
+                String mail = resultSet.getString("email");
+                String password = resultSet.getString("password");
+                user = new Enseignant(id, nom,password,mail);
+            }
+
+        }catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return user;
+
+
+    }
+
 }
