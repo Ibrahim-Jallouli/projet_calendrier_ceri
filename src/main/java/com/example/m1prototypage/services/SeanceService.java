@@ -15,6 +15,7 @@ public class SeanceService {
     SalleSevice salleSevice = new SalleSevice();
     FormationService formationService = new FormationService();
     MemoService memoService = new MemoService();
+    TypeService typeService = new TypeService();
 
 
     public Seance getSeanceById(String uid) {
@@ -61,13 +62,14 @@ public class SeanceService {
         Formation formation = formationService.getFormationById(formationId);
 
         int type_id = resultSet.getInt("type_id");
+        TYPE type = typeService.getTypeById(type_id);
 
 
         int memo_id = resultSet.getInt("memo_id");
         Memo memo = memoService.getMemoById(memo_id);
 
         // Maintenant, on peut instancier l'objet Seance en utilisant toutes les informations récupérées
-        return new Seance(uid, dtStart, dtEnd, matiere, enseignantsList.toArray(new Enseignant[0]), salle, formation, null, memo);
+        return new Seance(uid, dtStart, dtEnd, matiere, enseignantsList.toArray(new Enseignant[0]), salle, formation, type, memo);
 
     }
 
