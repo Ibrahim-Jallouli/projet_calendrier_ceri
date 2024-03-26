@@ -12,7 +12,8 @@
 <?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox prefHeight="600.0" prefWidth="800.0" spacing="10.0" style="-fx-background-color: #F5F5F5; -fx-padding: 10px;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.m1prototypage.controller.CalendarController">
+<?import javafx.scene.layout.StackPane?>
+<VBox prefHeight="600.0" prefWidth="800.0" spacing="10.0" style="-fx-background-color: #F5F5F5; -fx-padding: 10px;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.m1prototypage.controller.CalendarController" stylesheets="@../css/style.css">
 
     <!-- Barre de recherche -->
     <HBox spacing="10.0" style="-fx-alignment: CENTER;">
@@ -56,10 +57,11 @@
             </ComboBox>
 
             <!-- ComboBox pour les valeurs de filtre -->
-            <ComboBox fx:id="filterValueComboBox" onAction="#handleFilterValueChange" visible="false">
+            <ComboBox fx:id="filterValueComboBox" onAction="#handleFilterValueChange" visible="false" prefWidth="150">
             <HBox.margin>
                <Insets right="10.0" />
-            </HBox.margin></ComboBox>
+            </HBox.margin>
+            </ComboBox>
          <HBox.margin>
             <Insets right="15.0" />
          </HBox.margin>
@@ -71,7 +73,7 @@
         <!-- Deuxième filtre -->
         <HBox spacing="10.0"  style="-fx-padding: 10;">
             <Label text="Afficher par :" />
-            <ComboBox fx:id="filterComboBox" prefWidth="150.0">
+            <ComboBox fx:id="filterTimeBox" prefWidth="150.0">
                 <items>
                     <FXCollections fx:factory="observableArrayList">
                         <String fx:value="Semaine" />
@@ -89,9 +91,8 @@
     <!-- Contenu principal de l'emploi du temps -->
     <VBox alignment="CENTER" spacing="10.0" style="-fx-background-color: #FFFFFF; -fx-padding: 10px;">
         <Label style="-fx-font-size: 18pt; -fx-font-weight: bold;" text="Votre emploi du temps" />
-        <!--  les éléments de l emploi du temps -->
-
-        <GridPane fx:id="scheduleGrid" alignment="CENTER" hgap="10" vgap="10" />
+        <!-- Conteneur pour les vues dynamiques -->
+        <StackPane fx:id="scheduleContainer" />
       <VBox.margin>
          <Insets top="15.0" />
       </VBox.margin>

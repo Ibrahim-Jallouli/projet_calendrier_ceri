@@ -1,0 +1,77 @@
+/*.day-header {
+  -fx-border-color: grey;
+  -fx-border-width: 0 0 2 0;
+}
+
+.hour-row {
+  -fx-border-style: dotted;
+  -fx-border-width: 0 0 1 0;
+   -fx-border-color: grey;
+  -fx-padding: 5px;
+}
+.cell-border {
+    -fx-border-color: black;
+    -fx-border-width: 0 0 0 1px;
+    -fx-padding: 5px;
+}
+*/
+
+
+/* Séparateurs horizontaux pour chaque intervalle de 30 minutes */
+.horizontal-separator {
+    -fx-pref-height: 1px;
+    -fx-background-color: black; /* Séparateur horizontal noir */
+}
+
+/* Style général pour le GridPane */
+.grid-pane {
+    -fx-padding: 5px;
+}
+
+/* Style pour les cellules de créneaux */
+.session-cell {
+    -fx-background-color: #add8e6; /* Couleur de fond */
+    -fx-alignment: center; /* Alignement du texte */
+    -fx-padding: 5px; /* Padding intérieur */
+    -fx-border-color: black; /* Couleur de la bordure */
+    -fx-border-width: 1px; /* Épaisseur de la bordure */
+}
+
+/* Style pour les bordures des créneaux */
+.session-border {
+    -fx-border-color: black; /* Couleur de la bordure */
+    -fx-border-width: 0 0 1px 1px; /* Bordures inférieure et à droite seulement */
+}
+
+.half-hour-separator {
+    -fx-border-color: lightgray; /* Choisissez une couleur appropriée pour la bordure */
+    -fx-border-width: 0 0 1px 0; /* Bordure inférieure pour représenter le séparateur */
+    -fx-pref-height: 1px; /* Hauteur préférée pour s'assurer que le séparateur est visible */
+}
+.day-header {
+    -fx-background-color: #757575;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-alignment: center;
+    -fx-padding: 5px;
+    -fx-border-width: 0 1px 0 0; /* Ajoutez une bordure verticale pour séparer les jours */
+}
+
+.hour-label {
+    -fx-font-weight: bold;
+    -fx-alignment: center-right;
+    -fx-padding: 2px 5px;
+    -fx-border-width: 0 0 1px 0; /* Bordure horizontale pour séparer les heures */
+}
+
+.half-hour-separator {
+    -fx-pref-height: 1px;
+    -fx-background-color: #d3d3d3; /* Couleur de la bordure */
+    -fx-border-width: 0 0 1px 0; /* Bordure inférieure */
+}
+
+.vertical-separator {
+    -fx-pref-width: 1px;
+    -fx-background-color: #d3d3d3; /* Couleur de la bordure */
+    -fx-border-width: 0 0 0 1px; /* Bordure à droite */
+}

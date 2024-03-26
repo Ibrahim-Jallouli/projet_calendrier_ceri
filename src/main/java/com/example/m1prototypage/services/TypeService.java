@@ -24,7 +24,7 @@ public class TypeService {
 
             while (resultSet.next()) {
                 int id = resultSet.getInt("id");
-                String nom = resultSet.getString("nom");
+                String nom = resultSet.getString("name");
 
                 TYPE type = new TYPE(id, nom);
                 types.add(type);
@@ -44,7 +44,7 @@ public class TypeService {
             ResultSet resultSet = statement.executeQuery();
 
             if (resultSet.next()) {
-                String nom = resultSet.getString("nom");
+                String nom = resultSet.getString("name");
                 type = new TYPE(id, nom);
             }
         } catch (SQLException e) {
