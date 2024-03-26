@@ -88,12 +88,6 @@ public class CalendarController implements Initializable {
         }
     }
 
-  /*  private void loadFilterValues(String selectedType) {
-        // Charger les valeurs de filtre selon le type sélectionné
-        // Implémentez cette méthode pour charger les valeurs en fonction du type sélectionné
-        // Ensuite, vous ajoutez ces valeurs à la ComboBox des valeurs de filtre
-    }
-*/
   private void loadFilterValues(String selectedType) {
       MatiereService matiereService = new MatiereService();
       TypeService typeService = new TypeService();

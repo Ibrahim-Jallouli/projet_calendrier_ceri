@@ -1,21 +1,3 @@
-/*.day-header {
-  -fx-border-color: grey;
-  -fx-border-width: 0 0 2 0;
-}
-
-.hour-row {
-  -fx-border-style: dotted;
-  -fx-border-width: 0 0 1 0;
-   -fx-border-color: grey;
-  -fx-padding: 5px;
-}
-.cell-border {
-    -fx-border-color: black;
-    -fx-border-width: 0 0 0 1px;
-    -fx-padding: 5px;
-}
-*/
-
 
 /* Séparateurs horizontaux pour chaque intervalle de 30 minutes */
 .horizontal-separator {
@@ -43,18 +25,15 @@
     -fx-border-width: 0 0 1px 1px; /* Bordures inférieure et à droite seulement */
 }
 
-.half-hour-separator {
-    -fx-border-color: lightgray; /* Choisissez une couleur appropriée pour la bordure */
-    -fx-border-width: 0 0 1px 0; /* Bordure inférieure pour représenter le séparateur */
-    -fx-pref-height: 1px; /* Hauteur préférée pour s'assurer que le séparateur est visible */
-}
 .day-header {
-    -fx-background-color: #757575;
-    -fx-text-fill: white;
-    -fx-font-weight: bold;
-    -fx-alignment: center;
-    -fx-padding: 5px;
-    -fx-border-width: 0 1px 0 0; /* Ajoutez une bordure verticale pour séparer les jours */
+        /*-fx-background-color: #757575;*/
+      /* -fx-text-fill: white;*/
+       -fx-font-weight: bold;
+       -fx-alignment: center;
+       -fx-padding: 10px; /* Ajustez le padding pour augmenter la hauteur et la largeur */
+       -fx-border-width: 1px 0; /* Ajoutez une bordure en bas */
+        /*-fx-border-color: black;*/
+
 }
 
 .hour-label {
@@ -64,14 +43,55 @@
     -fx-border-width: 0 0 1px 0; /* Bordure horizontale pour séparer les heures */
 }
 
-.half-hour-separator {
-    -fx-pref-height: 1px;
-    -fx-background-color: #d3d3d3; /* Couleur de la bordure */
-    -fx-border-width: 0 0 1px 0; /* Bordure inférieure */
-}
 
 .vertical-separator {
     -fx-pref-width: 1px;
     -fx-background-color: #d3d3d3; /* Couleur de la bordure */
     -fx-border-width: 0 0 0 1px; /* Bordure à droite */
+}
+
+/* Séparateurs horizontaux pour chaque demi-heure */
+.half-hour-separator {
+    -fx-pref-height: 1px;
+    -fx-background-color: #d3d3d3; /* Couleur de la bordure */
+    -fx-border-width: 0 0 1px 0; /* Bordure inférieure */
+    -fx-border-style: dashed; /* Bordure en pointillés */
+
+}
+
+/* Séparateurs verticaux pour chaque heure */
+.hour-separator {
+    -fx-pref-width: 1px;
+    -fx-background-color: #d3d3d3; /* Couleur de la bordure */
+    -fx-border-width: 0 0 1px 0; /* Bordure à droite */
+    -fx-border-style: dashed; /* Bordure en pointillés */
+
+}
+/* Style pour les séparateurs entre les jours */
+.day-separator {
+    -fx-pref-width: 1px;
+    -fx-background-color: #d3d3d3; /* Couleur de la bordure */
+    -fx-border-width: 0 0 0 1px; /* Bordure à droite */
+}
+
+/* Style pour les séparateurs entre l'en-tête et le contenu */
+.header-content-separator {
+    -fx-pref-height: 1px;
+    -fx-background-color: #d3d3d3; /* Couleur de la bordure */
+    -fx-border-width: 1px 0; /* Bordure en bas */
+    -fx-border-color: black;
+}
+.current-time-marker {
+    -fx-stroke: red; /* Couleur de la ligne */
+    -fx-stroke-width: 2px; /* Épaisseur de la ligne */
+}
+
+.seance-pane{
+    -fx-background-color: #579b57;
+    -fx-background-radius: 5px;
+}
+
+.seance-label{
+    -fx-text-fill: white;
+    -fx-padding :5px;
 }

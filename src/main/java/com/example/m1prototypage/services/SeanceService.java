@@ -4,6 +4,7 @@ import com.example.m1prototypage.entities.*;
 import com.example.m1prototypage.utils.DataSource;
 
 import java.sql.*;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -71,6 +72,23 @@ public class SeanceService {
         // Maintenant, on peut instancier l'objet Seance en utilisant toutes les informations récupérées
         return new Seance(uid, dtStart, dtEnd, matiere, enseignantsList.toArray(new Enseignant[0]), salle, formation, type, memo);
 
+    }
+
+    public List<Seance> getSeancesForWeek(LocalDate weekStart, LocalDate weekEnd) {
+        List<Seance> seances = new ArrayList<>();
+        String query = "SELECT * FROM Seance WHERE dtStart BETWEEN ? AND ? AND Formation_id = 1";
+        try (PreparedStatement statement = cnx.prepareStatement(query)) {
+            statement.setTimestamp(1, Timestamp.valueOf(weekStart.atStartOfDay()));
+            statement.setTimestamp(2, Timestamp.valueOf(weekEnd.atTime(23, 59, 59)));
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                Seance seance = mapToSeance(resultSet);
+                seances.add(seance);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return seances;
     }
 
 }

@@ -13,7 +13,16 @@
 <?import javafx.scene.layout.VBox?>
 
 <?import javafx.scene.layout.StackPane?>
-<VBox prefHeight="600.0" prefWidth="800.0" spacing="10.0" style="-fx-background-color: #F5F5F5; -fx-padding: 10px;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.m1prototypage.controller.CalendarController" stylesheets="@../css/style.css">
+<?import javafx.scene.control.ScrollPane?>
+
+<ScrollPane fitToWidth="true" fitToHeight="true"
+            xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.example.m1prototypage.controller.CalendarController">
+    <VBox prefHeight="600.0" prefWidth="800.0" spacing="10.0" style="-fx-background-color: #F5F5F5; -fx-padding: 10px;"
+          stylesheets="@../css/style.css">
+
+
 
     <!-- Barre de recherche -->
     <HBox spacing="10.0" style="-fx-alignment: CENTER;">
@@ -89,7 +98,7 @@
     </HBox>
 
     <!-- Contenu principal de l'emploi du temps -->
-    <VBox alignment="CENTER" spacing="10.0" style="-fx-background-color: #FFFFFF; -fx-padding: 10px;">
+    <VBox alignment="CENTER" spacing="10.0" style="-fx-background-color: #FFFFFF; -fx-padding: 10px; HBox.hgrow=ALWAYS" >
         <Label style="-fx-font-size: 18pt; -fx-font-weight: bold;" text="Votre emploi du temps" />
         <!-- Conteneur pour les vues dynamiques -->
         <StackPane fx:id="scheduleContainer" />
@@ -102,3 +111,4 @@
 
 
 </VBox>
+</ScrollPane>
