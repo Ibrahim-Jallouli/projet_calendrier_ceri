@@ -17,6 +17,7 @@ public class SeanceService {
     FormationService formationService = new FormationService();
     MemoService memoService = new MemoService();
     TypeService typeService = new TypeService();
+    UserService userService = new UserService();
 
 
     public Seance getSeanceById(String uid) {
@@ -56,8 +57,8 @@ public class SeanceService {
         int salle_id = resultSet.getInt("salle_id");
         Salle salle = salleSevice.getSalleById(salle_id);
         // Récupérer les enseignants
-        List<Enseignant> enseignantsList = new ArrayList<>();
-
+        int enseignant_id = resultSet.getInt("enseignant_id");
+        Enseignant enseignant =  userService.getEnseignantById(enseignant_id);
 
         int formationId = resultSet.getInt("formation_id");
         Formation formation = formationService.getFormationById(formationId);
@@ -70,16 +71,20 @@ public class SeanceService {
         Memo memo = memoService.getMemoById(memo_id);
 
         // Maintenant, on peut instancier l'objet Seance en utilisant toutes les informations récupérées
-        return new Seance(uid, dtStart, dtEnd, matiere, enseignantsList.toArray(new Enseignant[0]), salle, formation, type, memo);
+        return new Seance(uid, dtStart, dtEnd, matiere, enseignant, salle, formation, type, memo);
 
     }
 
-    public List<Seance> getSeancesForWeek(LocalDate weekStart, LocalDate weekEnd) {
+    public List<Seance> getSeancesForWeek(LocalDate weekStart, LocalDate weekEnd, Integer formationId) {
         List<Seance> seances = new ArrayList<>();
-        String query = "SELECT * FROM Seance WHERE dtStart BETWEEN ? AND ? AND Formation_id = 1";
+        // Adjust your query to use the formationId if it's provided
+        String query = "SELECT * FROM Seance WHERE dtStart BETWEEN ? AND ? AND Formation_id = ?" ;
+
         try (PreparedStatement statement = cnx.prepareStatement(query)) {
             statement.setTimestamp(1, Timestamp.valueOf(weekStart.atStartOfDay()));
             statement.setTimestamp(2, Timestamp.valueOf(weekEnd.atTime(23, 59, 59)));
+            statement.setInt(3, formationId); // Set formationId if it's not null
+
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
                 Seance seance = mapToSeance(resultSet);

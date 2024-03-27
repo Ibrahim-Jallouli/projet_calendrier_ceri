@@ -41,7 +41,7 @@ public class UserService {
         return user;
     }
 
-    public User getEnseignantById(int id) {
+    public Enseignant getEnseignantById(int id) {
 
         User user = null;
         try (PreparedStatement statement = cnx.prepareStatement("SELECT * FROM `Enseignant` WHERE id = ?")){
@@ -51,7 +51,7 @@ public class UserService {
             ResultSet resultSet = statement.executeQuery();
 
             if (resultSet.next()) {
-                String nom = resultSet.getString("nom");
+                String nom = resultSet.getString("username");
                 String mail = resultSet.getString("email");
                 String password = resultSet.getString("password");
                 user = new Enseignant(id, nom,password,mail);
@@ -61,7 +61,7 @@ public class UserService {
             e.printStackTrace();
         }
 
-        return user;
+        return Enseignant.class.cast(user);
 
 
     }

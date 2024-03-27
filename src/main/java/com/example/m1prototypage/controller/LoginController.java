@@ -1,6 +1,7 @@
 package com.example.m1prototypage.controller;
 
 import com.example.m1prototypage.entities.User;
+import com.example.m1prototypage.entities.UserSession;
 import com.example.m1prototypage.services.UserService;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -65,6 +66,7 @@ public class LoginController implements Initializable {
         User user = userService.getUser(usernameField.getText());
         if (user != null && user.getPassword().equals(passwordField.getText())) {
             System.out.println("Identifiants corrects");
+            UserSession.getInstance().setCurrentUser(user);
             openCalendarView();
         } else {
             System.out.println("Identifiants incorrects");
@@ -76,6 +78,8 @@ public class LoginController implements Initializable {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/m1prototypage/GUI/calendar-view.fxml"));
         Stage stage = (Stage) loginButton.getScene().getWindow();
         stage.setScene(new Scene(loader.load()));
+        stage.setMinHeight(600);
+        stage.setMinWidth(1100);
     }
 
 

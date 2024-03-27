@@ -17,4 +17,8 @@ public class Etudiant extends User{
         this.formation = formation;
     }
 
+    public int getFormationId() {
+        return formation.getId();
+    }
+
 }

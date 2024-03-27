@@ -7,7 +7,7 @@ public class Seance {
     private Date dtStart;
     private Date dtEnd;
     private Matiere matiere;
-    private Enseignant[] enseignants;
+    private Enseignant enseignant;
     private Salle salle;
     private Formation formation;
     private TYPE type;
@@ -16,12 +16,12 @@ public class Seance {
     public Seance() {
     }
 
-    public Seance(String uid, Date dtStart, Date dtEnd, Matiere matiere, Enseignant[] enseignants, Salle salle, Formation formation, TYPE type, Memo memo) {
+    public Seance(String uid, Date dtStart, Date dtEnd, Matiere matiere, Enseignant enseignant, Salle salle, Formation formation, TYPE type, Memo memo) {
         this.uid = uid;
         this.dtStart = dtStart;
         this.dtEnd = dtEnd;
         this.matiere = matiere;
-        this.enseignants = enseignants;
+        this.enseignant = enseignant;
         this.salle = salle;
         this.formation = formation;
         this.type = type;
@@ -60,12 +60,12 @@ public class Seance {
         this.matiere = matiere;
     }
 
-    public Enseignant[] getEnseignants() {
-        return enseignants;
+    public Enseignant getEnseignant() {
+        return enseignant;
     }
 
-    public void setEnseignants(Enseignant[] enseignants) {
-        this.enseignants = enseignants;
+    public void setEnseignant(Enseignant enseignants) {
+        this.enseignant = enseignants;
     }
 
     public Salle getSalle() {

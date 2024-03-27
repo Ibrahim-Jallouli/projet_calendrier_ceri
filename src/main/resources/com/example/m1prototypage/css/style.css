@@ -26,21 +26,17 @@
 }
 
 .day-header {
-        /*-fx-background-color: #757575;*/
-      /* -fx-text-fill: white;*/
        -fx-font-weight: bold;
        -fx-alignment: center;
-       -fx-padding: 10px; /* Ajustez le padding pour augmenter la hauteur et la largeur */
-       -fx-border-width: 1px 0; /* Ajoutez une bordure en bas */
-        /*-fx-border-color: black;*/
-
+       -fx-padding: 10px;
+       -fx-border-width: 1px 0;
+       -fx-max-width: 200px;
 }
-
 .hour-label {
     -fx-font-weight: bold;
-    -fx-alignment: center-right;
+    -fx-alignment: center-right; /* Note: -fx-alignment might not work as expected for Label */
     -fx-padding: 2px 5px;
-    -fx-border-width: 0 0 1px 0; /* Bordure horizontale pour séparer les heures */
+    -fx-min-width: 45px;
 }
 
 
@@ -50,29 +46,13 @@
     -fx-border-width: 0 0 0 1px; /* Bordure à droite */
 }
 
-/* Séparateurs horizontaux pour chaque demi-heure */
-.half-hour-separator {
-    -fx-pref-height: 1px;
-    -fx-background-color: #d3d3d3; /* Couleur de la bordure */
-    -fx-border-width: 0 0 1px 0; /* Bordure inférieure */
-    -fx-border-style: dashed; /* Bordure en pointillés */
 
-}
-
-/* Séparateurs verticaux pour chaque heure */
-.hour-separator {
-    -fx-pref-width: 1px;
-    -fx-background-color: #d3d3d3; /* Couleur de la bordure */
-    -fx-border-width: 0 0 1px 0; /* Bordure à droite */
-    -fx-border-style: dashed; /* Bordure en pointillés */
-
-}
-/* Style pour les séparateurs entre les jours */
 .day-separator {
-    -fx-pref-width: 1px;
-    -fx-background-color: #d3d3d3; /* Couleur de la bordure */
-    -fx-border-width: 0 0 0 1px; /* Bordure à droite */
+    -fx-border-color: black; /* Color of the separator line */
+    -fx-border-width: 0 1 0 0; /* Only draw a right border to create the separator */
 }
+
+
 
 /* Style pour les séparateurs entre l'en-tête et le contenu */
 .header-content-separator {
@@ -86,12 +66,33 @@
     -fx-stroke-width: 2px; /* Épaisseur de la ligne */
 }
 
-.seance-pane{
-    -fx-background-color: #579b57;
-    -fx-background-radius: 5px;
+.even-row {
+    -fx-background-color: white;
 }
 
-.seance-label{
-    -fx-text-fill: white;
-    -fx-padding :5px;
+.odd-row {
+    -fx-background-color: gray;
 }
+
+/* style.css */
+.seance-details {
+    -fx-padding: 0 10 0 10; /* Top Right Bottom Left padding */
+    -fx-alignment: center;
+
+}
+
+.seance-label {
+    -fx-text-fill: black;
+    -fx-wrap-text: true;
+    -fx-max-width: 200px; /* Adjust based on your needs */
+    -fx-min-width: 75px;
+    -fx-label-padding: 5 0 5 0; /* Top Right Bottom Left */
+}
+
+.seance-pane {
+    -fx-background-color: #c5dec5;
+    -fx-border-color: #a1a1a1;
+    -fx-border-radius: 5;
+    -fx-background-radius: 5;
+}
+
