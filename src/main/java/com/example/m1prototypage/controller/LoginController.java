@@ -78,8 +78,9 @@ public class LoginController implements Initializable {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/m1prototypage/GUI/calendar-view.fxml"));
         Stage stage = (Stage) loginButton.getScene().getWindow();
         stage.setScene(new Scene(loader.load()));
+        stage.setWidth(1050);
         stage.setMinHeight(600);
-        stage.setMinWidth(1100);
+        stage.setMinWidth(800);
     }
 
 

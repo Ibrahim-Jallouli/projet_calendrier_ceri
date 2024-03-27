@@ -1,37 +1,14 @@
-
-/* Séparateurs horizontaux pour chaque intervalle de 30 minutes */
-.horizontal-separator {
-    -fx-pref-height: 1px;
-    -fx-background-color: black; /* Séparateur horizontal noir */
-}
-
-/* Style général pour le GridPane */
-.grid-pane {
-    -fx-padding: 5px;
-}
-
-/* Style pour les cellules de créneaux */
-.session-cell {
-    -fx-background-color: #add8e6; /* Couleur de fond */
-    -fx-alignment: center; /* Alignement du texte */
-    -fx-padding: 5px; /* Padding intérieur */
-    -fx-border-color: black; /* Couleur de la bordure */
-    -fx-border-width: 1px; /* Épaisseur de la bordure */
-}
-
-/* Style pour les bordures des créneaux */
-.session-border {
-    -fx-border-color: black; /* Couleur de la bordure */
-    -fx-border-width: 0 0 1px 1px; /* Bordures inférieure et à droite seulement */
-}
-
+/* Style for the day headers */
 .day-header {
-       -fx-font-weight: bold;
-       -fx-alignment: center;
-       -fx-padding: 10px;
-       -fx-border-width: 1px 0;
-       -fx-max-width: 200px;
+    -fx-font-weight: bold;
+    -fx-alignment: center;
+    -fx-padding: 10px;
+    -fx-border-width: 1px 0;
+    -fx-max-width: 200px;
+    -fx-min-width: 130px;
 }
+
+/* Style for the hour labels */
 .hour-label {
     -fx-font-weight: bold;
     -fx-alignment: center-right; /* Note: -fx-alignment might not work as expected for Label */
@@ -39,48 +16,26 @@
     -fx-min-width: 45px;
 }
 
-
+/* Style for vertical separators */
 .vertical-separator {
     -fx-pref-width: 1px;
-    -fx-background-color: #d3d3d3; /* Couleur de la bordure */
-    -fx-border-width: 0 0 0 1px; /* Bordure à droite */
+    -fx-background-color: #d3d3d3; /* Separator color */
+    -fx-border-width: 0 0 0 1px; /* Right border */
 }
 
-
+/* Style for day separators */
 .day-separator {
     -fx-border-color: black; /* Color of the separator line */
     -fx-border-width: 0 1 0 0; /* Only draw a right border to create the separator */
 }
 
-
-
-/* Style pour les séparateurs entre l'en-tête et le contenu */
-.header-content-separator {
-    -fx-pref-height: 1px;
-    -fx-background-color: #d3d3d3; /* Couleur de la bordure */
-    -fx-border-width: 1px 0; /* Bordure en bas */
-    -fx-border-color: black;
-}
-.current-time-marker {
-    -fx-stroke: red; /* Couleur de la ligne */
-    -fx-stroke-width: 2px; /* Épaisseur de la ligne */
-}
-
-.even-row {
-    -fx-background-color: white;
-}
-
-.odd-row {
-    -fx-background-color: gray;
-}
-
-/* style.css */
+/* Style for seance details within a seance pane */
 .seance-details {
     -fx-padding: 0 10 0 10; /* Top Right Bottom Left padding */
     -fx-alignment: center;
-
 }
 
+/* Style for labels within seance details */
 .seance-label {
     -fx-text-fill: black;
     -fx-wrap-text: true;
@@ -89,6 +44,7 @@
     -fx-label-padding: 5 0 5 0; /* Top Right Bottom Left */
 }
 
+/* Style for the seance pane */
 .seance-pane {
     -fx-background-color: #c5dec5;
     -fx-border-color: #a1a1a1;
@@ -96,3 +52,7 @@
     -fx-background-radius: 5;
 }
 
+.time-marker {
+    -fx-background-color: red; /* Visible color to stand out */
+    -fx-pref-height: 0px; /* Thin line */
+}

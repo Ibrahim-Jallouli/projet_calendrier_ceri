@@ -99,4 +99,16 @@ public class Seance {
     public void setMemo(Memo memo) {
         this.memo = memo;
     }
+
+    @Override
+    public String toString() {
+        return "Seance{" +
+                ", dtStart=" + dtStart +
+                ", dtEnd=" + dtEnd +
+                ", matiere=" + matiere +
+                ", enseignant=" + enseignant +
+                ", formation=" + formation +
+
+                '}';
+    }
 }
