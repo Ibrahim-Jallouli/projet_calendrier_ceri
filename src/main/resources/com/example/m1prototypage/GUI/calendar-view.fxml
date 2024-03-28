@@ -14,11 +14,16 @@
 <?import javafx.scene.control.ScrollPane?>
 
 <ScrollPane fitToWidth="true" fitToHeight="true"
-            xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
+            xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
             fx:controller="com.example.m1prototypage.controller.CalendarController">
+
     <VBox prefHeight="600.0" prefWidth="800.0" spacing="10.0" style="-fx-background-color: #F5F5F5; -fx-padding: 10px;"
           stylesheets="@../css/style.css">
+        <!-- Container for the current user label, ensuring it aligns to the top right -->
+        <HBox alignment="TOP_RIGHT">
+            <Region HBox.hgrow="ALWAYS" /> <!-- This Region pushes the following content to the right -->
+            <Label fx:id="currentUserLabel" text="User: " styleClass="user-label" />
+        </HBox>
         <!-- Barre de recherche -->
         <HBox spacing="10.0" style="-fx-alignment: CENTER;">
             <Label text="Recherche :" />
@@ -33,11 +38,7 @@
             </ComboBox>
             <TextField fx:id="searchField" promptText="Entrez votre recherche" />
             <Button text="Rechercher" />
-            <VBox.margin>
-                <Insets top="12.0" />
-            </VBox.margin>
         </HBox>
-
         <!-- Options de filtrage -->
         <HBox style="-fx-alignment: CENTER;">
             <!-- Premier filtre -->
@@ -47,7 +48,7 @@
                         <Insets right="15.0" />
                     </HBox.margin>
                 </Label>
-                <ComboBox fx:id="filterTypeComboBox" onAction="#handleFilterTypeSelection">
+                <ComboBox fx:id="filterTypeComboBox">
                     <items>
                         <FXCollections fx:factory="observableArrayList">
                             <String fx:value="Matière" />
@@ -59,8 +60,9 @@
                         <Insets right="12.0" />
                     </HBox.margin>
                 </ComboBox>
-                <!-- ComboBox pour les valeurs de filtre -->
-                <ComboBox fx:id="filterValueComboBox" onAction="#handleFilterValueChange" visible="false" prefWidth="150">
+                <!-- ComboBox for filter values -->
+                <ComboBox fx:id="filterValueComboBox" onAction="#handleFilterValueChange" prefWidth="150" visible="false">
+                    <!-- The visibility is dynamically controlled by the controller -->
                     <HBox.margin>
                         <Insets right="10.0" />
                     </HBox.margin>
@@ -69,16 +71,15 @@
                     <Insets right="15.0" />
                 </HBox.margin>
             </HBox>
-            <!-- Espace flexible entre les deux filtres -->
+            <!-- Flexible space between the two filters -->
             <Region HBox.hgrow="ALWAYS" />
-            <!-- Deuxième filtre -->
-            <HBox spacing="10.0"  style="-fx-padding: 10;">
+            <!-- Second filter -->
+            <HBox spacing="10.0" style="-fx-padding: 10;">
                 <Label text="Afficher par :" />
                 <ComboBox fx:id="filterTimeBox" prefWidth="150.0">
                     <items>
                         <FXCollections fx:factory="observableArrayList">
                             <String fx:value="Semaine" />
-                            <String fx:value="Mois" />
                             <String fx:value="Jour" />
                         </FXCollections>
                     </items>
@@ -89,10 +90,10 @@
             </VBox.margin>
         </HBox>
 
-        <!-- Contenu principal de l'emploi du temps -->
+        <!-- Main content of the schedule -->
         <VBox alignment="CENTER" spacing="10.0" style="-fx-background-color: #FFFFFF; -fx-padding: 10px;">
-            <Label style="-fx-font-size: 18pt; -fx-font-weight: bold;" text="Votre emploi du temps" />
-            <!-- Conteneur pour les vues dynamiques -->
+            <Label style="-fx-font-size: 18pt; -fx-font-weight: bold;" text="emploi du temps" />
+            <!-- Container for dynamic views -->
             <StackPane fx:id="scheduleContainer" />
             <VBox.margin>
                 <Insets top="15.0" />

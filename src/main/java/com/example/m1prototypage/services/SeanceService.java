@@ -13,7 +13,7 @@ public class SeanceService {
     Connection cnx = DataSource.getInstance().getCnx();
 
     MatiereService matiereService = new MatiereService();
-    SalleSevice salleSevice = new SalleSevice();
+    SalleService salleSevice = new SalleService();
     FormationService formationService = new FormationService();
     MemoService memoService = new MemoService();
     TypeService typeService = new TypeService();
@@ -75,16 +75,31 @@ public class SeanceService {
 
     }
 
-    public List<Seance> getSeancesForWeek(LocalDate weekStart, LocalDate weekEnd, Integer formationId) {
+    public List<Seance> getSeancesForWeek(LocalDate weekStart, LocalDate weekEnd, User user) {
         List<Seance> seances = new ArrayList<>();
-        // Adjust your query to use the formationId if it's provided
-        String query = "SELECT * FROM Seance WHERE dtStart BETWEEN ? AND ? AND Formation_id = ?" ;
+        String query;
+        // Determine the type of user and adjust the query accordingly
+        if (user instanceof Etudiant) {
+            query = "SELECT * FROM Seance WHERE dtStart BETWEEN ? AND ? AND Formation_id = ?";
+        } else if (user instanceof Enseignant) {
+            query = "SELECT * FROM Seance WHERE dtStart BETWEEN ? AND ? AND enseignant_id  = ?";
+        } else {
+            // Handle other types of users or throw an exception
+            throw new IllegalArgumentException("Unsupported user type");
+        }
 
         try (PreparedStatement statement = cnx.prepareStatement(query)) {
             statement.setTimestamp(1, Timestamp.valueOf(weekStart.atStartOfDay()));
             statement.setTimestamp(2, Timestamp.valueOf(weekEnd.atTime(23, 59, 59)));
-            statement.setInt(3, formationId); // Set formationId if it's not null
 
+            // Set the third parameter based on the user type
+            if (user instanceof Etudiant) {
+                Etudiant etudiant = (Etudiant) user;
+                statement.setInt(3, etudiant.getFormationId()); // Assuming Etudiant has getFormationId()
+            } else if (user instanceof Enseignant) {
+                Enseignant enseignant = (Enseignant) user;
+                statement.setInt(3, enseignant.getId()); // Assuming Enseignant has getUsername()
+            }
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
                 Seance seance = mapToSeance(resultSet);
@@ -95,5 +110,6 @@ public class SeanceService {
         }
         return seances;
     }
+
 
 }

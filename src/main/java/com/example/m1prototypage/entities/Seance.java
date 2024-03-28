@@ -103,11 +103,8 @@ public class Seance {
     @Override
     public String toString() {
         return "Seance{" +
-                ", dtStart=" + dtStart +
+                "dtStart=" + dtStart +
                 ", dtEnd=" + dtEnd +
-                ", matiere=" + matiere +
-                ", enseignant=" + enseignant +
-                ", formation=" + formation +
 
                 '}';
     }

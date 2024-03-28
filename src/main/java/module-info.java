@@ -3,6 +3,7 @@ module com.example.m1prototypage {
     requires javafx.fxml;
     requires java.sql;
     requires com.opencsv;
+    requires java.desktop;
 
 
     opens com.example.m1prototypage to javafx.fxml;

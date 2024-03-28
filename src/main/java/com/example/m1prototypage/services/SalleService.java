@@ -8,7 +8,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SalleSevice {
+public class SalleService {
 
     Connection cnx = DataSource.getInstance().getCnx();
 

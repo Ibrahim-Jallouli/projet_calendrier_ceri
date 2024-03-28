@@ -4,19 +4,39 @@ import com.example.m1prototypage.services.SeanceService;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.*;
+import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import javafx.scene.control.Separator;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.*;
+
+import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.time.*;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.time.temporal.TemporalAdjusters;
-import java.util.List;
-import java.util.Locale;
-import java.util.ResourceBundle;
+import java.util.*;
+import java.util.stream.Collectors;
+import java.awt.Desktop;
 
-public class WeeklyController implements Initializable {
+
+public class WeeklyController implements Initializable,CalendarViewController {
+    private Map<String, String> currentFilterCriteria = new HashMap<>();
+    private User currentUser;
+
+    public void updateViewWithFilters(Map<String, String> filterCriteria, User currentUser) {
+        this.currentFilterCriteria = filterCriteria;
+        this.currentUser = currentUser;
+        updateScheduleAndLabel(); // Refresh the schedule based on the new filters
+    }
+    private void renderSeances(List<Seance> seances) {
+        for (Seance seance : seances) {
+            addSeanceToGrid(seance);
+        }
+    }
 
     @FXML
     private GridPane scheduleGrid;
@@ -77,18 +97,34 @@ public class WeeklyController implements Initializable {
         scheduleGrid.getChildren().clear();
         addHourLabels();
         addDayHeaders();
-        LocalDate weekEnd = currentWeekStart.plusDays(4); // Monday to Friday
+        LocalDate weekEnd = currentWeekStart.plusDays(4);
         User currentUser = UserSession.getInstance().getCurrentUser();
         List<Seance> seances;
 
-        if (currentUser instanceof Etudiant) {
-            Etudiant etudiant = (Etudiant) currentUser;
-            seances = seanceService.getSeancesForWeek(currentWeekStart, weekEnd, etudiant.getFormationId());
-            for (Seance seance : seances) {
-                System.out.println(seance);
-            }
+            seances = seanceService.getSeancesForWeek(currentWeekStart, weekEnd,currentUser);
+        if (currentFilterCriteria.containsKey("Matière")) {
+            String matiereFilter = currentFilterCriteria.get("Matière");
+            seances = seances.stream()
+                    .filter(seance -> seance.getMatiere().getNom().equals(matiereFilter))
+                    .collect(Collectors.toList());
+        }
 
-            // First, fill the grid with empty cells with alternate background colors
+        // Filter by "Type"
+        if (currentFilterCriteria.containsKey("Type")) {
+            String typeFilter = currentFilterCriteria.get("Type");
+            seances = seances.stream()
+                    .filter(seance -> seance.getType().getNom().equals(typeFilter))
+                    .collect(Collectors.toList());
+        }
+
+        // Filter by "Salle"
+        if (currentFilterCriteria.containsKey("Salle")) {
+            String salleFilter = currentFilterCriteria.get("Salle");
+            seances = seances.stream()
+                    .filter(seance -> seance.getSalle().getNom().equals(salleFilter))
+                    .collect(Collectors.toList());
+        }
+
             for (int i = 1; i < scheduleGrid.getRowCount(); i++) {
                 for (int j = 1; j < scheduleGrid.getColumnCount(); j++) {
                     Region cell = new Region();
@@ -98,25 +134,11 @@ public class WeeklyController implements Initializable {
                     GridPane.setValignment(cell, VPos.TOP); // Ensure alignment matches seancePane
                 }
             }
-
-            // Then, render each seance, which will override the default cell backgrounds
             for (Seance seance : seances) {
-                addSeanceToGrid(seance); // Assumes this method correctly sets up each seancePane
+                addSeanceToGrid(seance);
             }
-        }
+
     }
-
-
- /*   private List<Seance> getSeancesForCurrentUser(LocalDate weekEnd, User currentUser) {
-        Etudiant etudiant = (Etudiant) currentUser;
-        return seanceService.getSeancesForWeek(currentWeekStart, weekEnd, etudiant.getFormationId());
-    }
-
-    private void renderSeances(List<Seance> seances) {
-        for (Seance seance : seances) {
-            addSeanceToGrid(seance);
-        }
-    }*/
 
     private void addSeanceToGrid(Seance seance) {
         ZonedDateTime startZdt = seance.getDtStart().toInstant().atZone(ZoneId.systemDefault());
@@ -166,30 +188,62 @@ public class WeeklyController implements Initializable {
         LocalDate today = LocalDate.now();
         LocalTime now = LocalTime.now();
 
+        // Ensure we're within the grid's time range
+        if (now.isBefore(LocalTime.of(8, 0)) || now.isAfter(LocalTime.of(19, 0))) {
+            // It's outside the grid's hours, so do not highlight any cell
+            return;
+        }
+
         int currentColumn = today.getDayOfWeek().getValue();
         int currentRow = calculateRowForTime(now);
-        Region hourCell = new Region();
-        hourCell.setStyle("-fx-background-color: #faf0f0;"); // Set the background color
-        scheduleGrid.add(hourCell, currentColumn, currentRow);
-        GridPane.setValignment(hourCell, VPos.TOP); // Ensure alignment matches seancePane
+        if (currentRow >= 0) {
+            Region hourCell = new Region();
+            hourCell.setStyle("-fx-background-color: #faf0f0;"); // Set the background color
+            scheduleGrid.add(hourCell, currentColumn, currentRow);
+            GridPane.setValignment(hourCell, VPos.TOP); // Ensure alignment matches seancePane
+        }
     }
 
 
     private VBox constructSeanceDetailsPane(Seance seance) {
         VBox seanceDetails = new VBox(2); // Spacing between elements in VBox
-        Label matiereLabel = new Label("Matière: " + seance.getMatiere().getNom());
-        Label enseignantLabel = new Label("Enseignant: " + seance.getEnseignant().getUsername());
-        Label salleLabel = new Label("Salle: " + seance.getSalle().getNom());
 
-        // Styling labels, for example, can be added here or via CSS
-        matiereLabel.getStyleClass().add("seance-label");
-        enseignantLabel.getStyleClass().add("seance-label");
-        salleLabel.getStyleClass().add("seance-label");
+        // Using TextField for matiereLabel to enable text selection
+        TextField matiereField = new TextField("Matière: " + seance.getMatiere().getNom());
+        matiereField.setEditable(false);
+        matiereField.setBorder(null); // Remove border
+        matiereField.setBackground(Background.EMPTY); // Transparent background
+        matiereField.getStyleClass().add("seance-label");
 
-        seanceDetails.getChildren().addAll(matiereLabel, enseignantLabel, salleLabel);
+        // Create a Hyperlink for the enseignant
+        Hyperlink enseignantLink = new Hyperlink("Enseignant: " + seance.getEnseignant().getUsername());
+        enseignantLink.setOnAction(event -> {
+            String email = seance.getEnseignant().getMail(); // Make sure to use getEmail() or the correct method to fetch email
+            if (email != null && !email.isEmpty()) {
+                try {
+                    String sanitizedEmail = email.replace(" ", "_");
+                    Desktop.getDesktop().mail(new URI("mailto:" + sanitizedEmail));
+                } catch (IOException | URISyntaxException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
+        // Using TextField for salleLabel to enable text selection
+        TextField salleField = new TextField("Salle: " + seance.getSalle().getNom());
+        salleField.setEditable(false);
+        salleField.setBorder(null); // Remove border
+        salleField.setBackground(Background.EMPTY); // Transparent background
+        salleField.getStyleClass().add("seance-label");
+
+        // Adding elements to seanceDetails VBox
+        seanceDetails.getChildren().addAll(matiereField, enseignantLink, salleField);
         seanceDetails.getStyleClass().add("seance-details");
+
         return seanceDetails;
     }
+
+
 
     private int calculateRowForTime(LocalTime time) {
         long minutesFromStartOfDay = ChronoUnit.MINUTES.between(LocalTime.of(8, 0), time);
@@ -208,4 +262,6 @@ public class WeeklyController implements Initializable {
         currentWeekStart = currentWeekStart.plusWeeks(1);
         updateScheduleAndLabel();
     }
+
+
 }

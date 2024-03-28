@@ -17,4 +17,7 @@ public class Enseignant extends User{
         this.mail = mail;
     }
 
+    public String getMail() {
+        return mail;
+    }
 }

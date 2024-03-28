@@ -56,3 +56,12 @@
     -fx-background-color: red; /* Visible color to stand out */
     -fx-pref-height: 0px; /* Thin line */
 }
+
+.user-label {
+    -fx-font-weight: bold;
+    -fx-text-fill: #597b8d; /* Text color */
+    -fx-background-color: transparent;
+    -fx-font-size: 14px; /* Font size */
+}
+
+
