@@ -103,13 +103,16 @@ public class CalendarController implements Initializable {
     }
 
     private void setupFilterComboBox() {
-        filterTimeBox.getItems().setAll("Semaine","Jour");
+        filterTimeBox.getItems().setAll("Jour","Semaine", "Mois");
         filterTimeBox.setValue("Semaine");
         filterTimeBox.valueProperty().addListener((observable, oldValue, newValue) -> {
             String previousViewFxml = currentViewFxml;
             switch (newValue) {
                 case "Semaine":
                     currentViewFxml = "weekly-view.fxml";
+                    break;
+                case "Mois":
+                    currentViewFxml = "monthly-view.fxml";
                     break;
                 case "Jour":
                     currentViewFxml = "daily-view.fxml";

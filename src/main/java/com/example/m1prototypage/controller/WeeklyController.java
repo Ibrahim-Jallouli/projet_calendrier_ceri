@@ -2,13 +2,17 @@ package com.example.m1prototypage.controller;
 import com.example.m1prototypage.entities.*;
 import com.example.m1prototypage.services.SeanceService;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.*;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import javafx.scene.control.Separator;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.*;
+import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URI;
@@ -263,5 +267,18 @@ public class WeeklyController implements Initializable,CalendarViewController {
         updateScheduleAndLabel();
     }
 
+    @FXML
+    private void ouvrirFormulaireAjout() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/m1prototypage/GUI/AddSeanceForm.fxml"));
+            Parent root = loader.load();
+            Stage stage = new Stage();
+            stage.setTitle("Ajouter une séance");
+            stage.setScene(new Scene(root));
+            stage.show();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
 }

@@ -80,6 +80,7 @@
                     <items>
                         <FXCollections fx:factory="observableArrayList">
                             <String fx:value="Semaine" />
+                            <String fx:value="Mois" />
                             <String fx:value="Jour" />
                         </FXCollections>
                     </items>
@@ -92,7 +93,7 @@
 
         <!-- Main content of the schedule -->
         <VBox alignment="CENTER" spacing="10.0" style="-fx-background-color: #FFFFFF; -fx-padding: 10px;">
-            <Label style="-fx-font-size: 18pt; -fx-font-weight: bold;" text="emploi du temps" />
+            <Label style="-fx-font-size: 18pt; -fx-font-weight: bold;" text="Emploi du temps" />
             <!-- Container for dynamic views -->
             <StackPane fx:id="scheduleContainer" />
             <VBox.margin>
