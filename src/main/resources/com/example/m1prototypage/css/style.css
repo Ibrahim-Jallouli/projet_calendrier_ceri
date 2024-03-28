@@ -64,4 +64,26 @@
     -fx-font-size: 14px; /* Font size */
 }
 
+/* Styles pour le mode sombre */
+.dark-mode .root{
+    -fx-background-color: black;
+    -fx-text-fill: white;
+
+
+}
+
+.dark-mode .button {
+    -fx-background-color: white;
+    -fx-text-fill: black;
+}
+
+.dark-mode .combo-box {
+    -fx-background-color: #FFFFFF;
+    -fx-text-fill: #000000;
+}
+
+
+
+
+
 

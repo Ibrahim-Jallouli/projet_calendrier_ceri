@@ -15,7 +15,8 @@
 
 <ScrollPane fitToWidth="true" fitToHeight="true"
             xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
-            fx:controller="com.example.m1prototypage.controller.CalendarController">
+            fx:controller="com.example.m1prototypage.controller.CalendarController"
+            stylesheets="@../css/style.css">
 
     <VBox prefHeight="600.0" prefWidth="800.0" spacing="10.0" style="-fx-background-color: #F5F5F5; -fx-padding: 10px;"
           stylesheets="@../css/style.css">
@@ -23,6 +24,11 @@
         <HBox alignment="TOP_RIGHT">
             <Region HBox.hgrow="ALWAYS" /> <!-- This Region pushes the following content to the right -->
             <Label fx:id="currentUserLabel" text="User: " styleClass="user-label" />
+        </HBox>
+
+        <HBox>
+            <Button fx:id="toggleDarkModeButton" text="Activer le mode sombre" onAction="#toggleDarkMode"/>
+
         </HBox>
         <!-- Barre de recherche -->
         <HBox spacing="10.0" style="-fx-alignment: CENTER;">
