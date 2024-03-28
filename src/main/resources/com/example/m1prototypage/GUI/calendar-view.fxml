@@ -33,7 +33,7 @@
         <!-- Barre de recherche -->
         <HBox spacing="10.0" style="-fx-alignment: CENTER;">
             <Label text="Recherche :" />
-            <ComboBox fx:id="searchTypeComboBox" prefWidth="150.0">
+            <ComboBox fx:id="searchTypeComboBox" prefWidth="150.0" onAction="#updateSearchValues">
                 <items>
                     <FXCollections fx:factory="observableArrayList">
                         <String fx:value="Formation" />
@@ -42,9 +42,11 @@
                     </FXCollections>
                 </items>
             </ComboBox>
-            <TextField fx:id="searchField" promptText="Entrez votre recherche" />
-            <Button text="Rechercher" />
+            <ComboBox fx:id="searchValueComboBox" prefWidth="150.0" promptText="Entrez votre recherche">
+            </ComboBox>
+            <Button text="Rechercher" onAction="#handleSearch"/>
         </HBox>
+
         <!-- Options de filtrage -->
         <HBox style="-fx-alignment: CENTER;">
             <!-- Premier filtre -->

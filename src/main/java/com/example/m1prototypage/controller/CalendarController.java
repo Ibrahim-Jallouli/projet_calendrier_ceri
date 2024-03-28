@@ -2,12 +2,11 @@ package com.example.m1prototypage.controller;
 
 import com.example.m1prototypage.entities.User;
 import com.example.m1prototypage.entities.UserSession;
-import com.example.m1prototypage.services.MatiereService;
-import com.example.m1prototypage.services.SalleService;
-import com.example.m1prototypage.services.TypeService;
+import com.example.m1prototypage.services.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -16,6 +15,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import java.io.IOException;
@@ -45,6 +45,13 @@ public class CalendarController implements Initializable {
 
     @FXML
     private Button toggleDarkModeButton;
+
+    @FXML
+    private ComboBox<String> searchTypeComboBox;
+
+    @FXML
+    private ComboBox<String> searchValueComboBox;
+
 
     private boolean isDarkModeEnabled = false;
 
@@ -168,6 +175,47 @@ public class CalendarController implements Initializable {
         return filterCriteria;
     }
 
+
+    @FXML
+    private void handleSearch() {
+        String searchType = searchTypeComboBox.getValue();
+
+    }
+
+    @FXML
+    private void updateSearchValues() {
+
+        SalleService salleService = new SalleService();
+        EnseignantService enseignantService = new EnseignantService();
+        FormationService formationService = new FormationService();
+
+        String selectedType = searchTypeComboBox.getValue();
+        ObservableList<String> values = FXCollections.observableArrayList();
+
+        switch (selectedType) {
+            case "Formation":
+                formationService.getAllFormations().forEach(formation -> {
+                    values.add(formation.getNom());
+                });
+                break;
+            case "Enseignant":
+                enseignantService.getAllEnseignants().forEach(enseignant -> {
+                    values.add(enseignant.getUsername()); // Suppose que cette méthode retourne déjà des String
+                });
+                break;
+            case "Salle":
+                salleService.getAllSalles().forEach(salle -> {
+                    values.add(salle.getNom()); // Suppose que cette méthode retourne déjà des String
+                });
+                break;
+        }
+
+        searchValueComboBox.setItems(values);
+    }
+
+
+
+
     @FXML
     private void toggleDarkMode() {
         isDarkModeEnabled = !isDarkModeEnabled;
@@ -191,6 +239,10 @@ public class CalendarController implements Initializable {
         toggleDarkModeButton.setText(label);
 
     }
+
+
+
+
 
 
 }

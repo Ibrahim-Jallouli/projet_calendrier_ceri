@@ -16,7 +16,7 @@ public class SalleService {
     public List<Salle> getAllSalles() {
         List<Salle> salles = new ArrayList<>();
 
-        try (PreparedStatement statement = cnx.prepareStatement("SELECT * FROM Salle")) {
+        try (PreparedStatement statement = cnx.prepareStatement("SELECT * FROM Salle WHERE LENGTH(nom) <= 30;")) {
             ResultSet resultSet = statement.executeQuery();
 
             while (resultSet.next()) {
