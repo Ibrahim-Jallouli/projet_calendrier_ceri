@@ -160,6 +160,7 @@ public class WeeklyController implements Initializable,CalendarViewController {
             for (Seance seance : seances) {
                 addSeanceToGrid(seance);
             }
+        highlightCurrentHourCell(currentWeekStart, weekEnd);
 
     }
 
@@ -169,6 +170,7 @@ public class WeeklyController implements Initializable,CalendarViewController {
 
         Month startMonth = startZdt.getMonth();
         Month endMonth = endZdt.getMonth();
+
 
         if (startMonth.compareTo(Month.APRIL) >= 0 && startMonth.compareTo(Month.OCTOBER) <= 0) {
             startZdt = startZdt.plusHours(1);
@@ -189,8 +191,6 @@ public class WeeklyController implements Initializable,CalendarViewController {
         seancePane.getStyleClass().add("seance-pane");
 
         // Add the hour cell before adding the seance pane
-        highlightCurrentHourCell();
-
         // Add seance details to the pane
         Label typeLabel = new Label(seance.getType().getNom());
         typeLabel.setStyle("-fx-font-weight: bold; -fx-text-fill: blue;");
@@ -206,23 +206,31 @@ public class WeeklyController implements Initializable,CalendarViewController {
         GridPane.setValignment(seancePane, VPos.TOP);
     }
 
-    private void highlightCurrentHourCell() {
+    private void highlightCurrentHourCell(LocalDate weekStart, LocalDate weekEnd) {
         LocalDate today = LocalDate.now();
-        LocalTime now = LocalTime.now();
+        // Check if 'today' is within the week being displayed
+        if (today.isBefore(weekStart) || today.isAfter(weekEnd)) {
+            return; // Do not highlight any cell if the current date is outside the displayed week
+        }
 
+        LocalTime now = LocalTime.now();
         if (now.isBefore(LocalTime.of(8, 0)) || now.isAfter(LocalTime.of(19, 0))) {
             return;
         }
 
-        int currentColumn = today.getDayOfWeek().getValue();
+        int currentColumn = today.getDayOfWeek().getValue() - 1; // Adjust based on your column indexing
         int currentRow = calculateRowForTime(now);
         if (currentRow >= 0) {
             Region hourCell = new Region();
             hourCell.setStyle("-fx-background-color: #eedbbf;"); // Set the background color
-            scheduleGrid.add(hourCell, currentColumn, currentRow);
-            GridPane.setValignment(hourCell, VPos.TOP); // Ensure alignment matches seancePane
+            hourCell.setPrefSize(100, 30); // Example size, adjust as necessary
+            System.out.println("Highlighting cell at: " + currentRow + ", " + currentColumn);
+            scheduleGrid.add(hourCell, currentColumn + 1, currentRow); // Adjust column index if necessary
+            GridPane.setValignment(hourCell, VPos.TOP);
         }
+
     }
+
 
 
     private VBox constructSeanceDetailsPane(Seance seance) {
