@@ -76,7 +76,7 @@ public class SeanceService {
 
     }
 
-    public List<Seance> getSeancesForWeek(LocalDate weekStart, LocalDate weekEnd, User user) {
+    public List<Seance> getSeancesIntervalFrom(LocalDate weekStart, LocalDate weekEnd, User user) {
         List<Seance> seances = new ArrayList<>();
         String query;
         // Determine the type of user and adjust the query accordingly
@@ -173,5 +173,65 @@ public class SeanceService {
     }
 
 
+
+    public List<Seance> getSeancesByCriteriaEnseignant(LocalDate weekStart, LocalDate weekEnd, String enseignantId) {
+        List<Seance> seances = new ArrayList<>();
+        String query = "SELECT * FROM Seance WHERE dtStart BETWEEN ? AND ? AND enseignant_id = ?";
+
+        try (PreparedStatement statement = cnx.prepareStatement(query)) {
+            statement.setTimestamp(1, Timestamp.valueOf(weekStart.atStartOfDay()));
+            statement.setTimestamp(2, Timestamp.valueOf(weekEnd.atTime(23, 59)));
+            statement.setString(3, enseignantId);
+
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                Seance seance = mapToSeance(resultSet);
+                seances.add(seance);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return seances;
+    }
+
+    public List<Seance> getSeancesByCriteriaSalle(LocalDate weekStart, LocalDate weekEnd, String salleId) {
+        List<Seance> seances = new ArrayList<>();
+        String query = "SELECT * FROM Seance WHERE dtStart BETWEEN ? AND ? AND salle_id = ?";
+
+        try (PreparedStatement statement = cnx.prepareStatement(query)) {
+            statement.setTimestamp(1, Timestamp.valueOf(weekStart.atStartOfDay()));
+            statement.setTimestamp(2, Timestamp.valueOf(weekEnd.atTime(23, 59)));
+            statement.setString(3, salleId);
+
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                Seance seance = mapToSeance(resultSet);
+                seances.add(seance);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return seances;
+    }
+
+    public List<Seance> getSeancesByCriteriaFormation(LocalDate weekStart, LocalDate weekEnd, String formationId) {
+        List<Seance> seances = new ArrayList<>();
+        String query = "SELECT * FROM Seance WHERE dtStart BETWEEN ? AND ? AND formation_id = ?";
+
+        try (PreparedStatement statement = cnx.prepareStatement(query)) {
+            statement.setTimestamp(1, Timestamp.valueOf(weekStart.atStartOfDay()));
+            statement.setTimestamp(2, Timestamp.valueOf(weekEnd.atTime(23, 59)));
+            statement.setString(3, formationId);
+
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                Seance seance = mapToSeance(resultSet);
+                seances.add(seance);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return seances;
+    }
 
 }

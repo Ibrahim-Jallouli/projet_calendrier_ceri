@@ -1,5 +1,8 @@
 package com.example.m1prototypage.controller;
 import com.example.m1prototypage.entities.*;
+import com.example.m1prototypage.services.EnseignantService;
+import com.example.m1prototypage.services.FormationService;
+import com.example.m1prototypage.services.SalleService;
 import com.example.m1prototypage.services.SeanceService;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -29,17 +32,17 @@ import java.awt.Desktop;
 
 public class WeeklyController implements Initializable,CalendarViewController {
     private Map<String, String> currentFilterCriteria = new HashMap<>();
-    private User currentUser;
+    private Map<String, String> currentSearchCriteria = new HashMap<>();
+    private User currentUser = UserSession.getInstance().getCurrentUser();
 
-    public void updateViewWithFilters(Map<String, String> filterCriteria, User currentUser) {
-        this.currentFilterCriteria = filterCriteria;
-        this.currentUser = currentUser;
-        updateScheduleAndLabel(); // Refresh the schedule based on the new filters
-    }
-    private void renderSeances(List<Seance> seances) {
-        for (Seance seance : seances) {
-            addSeanceToGrid(seance);
-        }
+
+    @Override
+    public void updateViewWithCriteria(Map<String, String> filterCriteria, Map<String, String> searchCriteria) {
+        // Assuming these are class-level attributes that store the current state
+        currentFilterCriteria = filterCriteria;
+        currentSearchCriteria = searchCriteria; // This now directly assigns the map, assuming it's initialized
+
+        updateScheduleAndLabel(); // This method handles the application of both sets of criteria
     }
 
     @FXML
@@ -103,16 +106,26 @@ public class WeeklyController implements Initializable,CalendarViewController {
         addDayHeaders();
         LocalDate weekEnd = currentWeekStart.plusDays(4);
         User currentUser = UserSession.getInstance().getCurrentUser();
-        List<Seance> seances;
+        List<Seance> seances = new ArrayList<>();
 
-            seances = seanceService.getSeancesForWeek(currentWeekStart, weekEnd,currentUser);
-        if (currentFilterCriteria.containsKey("Matière")) {
-            String matiereFilter = currentFilterCriteria.get("Matière");
-            seances = seances.stream()
-                    .filter(seance -> seance.getMatiere().getNom().equals(matiereFilter))
-                    .collect(Collectors.toList());
+        if (currentSearchCriteria.containsKey("Enseignant")) {
+            EnseignantService enseignantService = new EnseignantService();
+            String enseignant = currentSearchCriteria.get("Enseignant");
+            String enseignantId = enseignantService.getEnseignantIdByName(enseignant).toString();
+            seances = seanceService.getSeancesByCriteriaEnseignant( currentWeekStart, weekEnd, enseignantId);
+        } else if (currentSearchCriteria.containsKey("Salle")) {
+            SalleService salleService = new SalleService();
+            String salle = currentSearchCriteria.get("Salle");
+            String salleId = salleService.getSalleIdByName(salle).toString();
+            seances = seanceService.getSeancesByCriteriaSalle( currentWeekStart, weekEnd,salleId);
+        } else if (currentSearchCriteria.containsKey("Formation")) {
+            FormationService formationService = new FormationService();
+            String formation = currentSearchCriteria.get("Formation");
+            String formationId = formationService.getFormationIdByName(formation).toString();
+            seances = seanceService.getSeancesByCriteriaFormation( currentWeekStart, weekEnd,formationId);
+        } else {
+            seances = seanceService.getSeancesIntervalFrom(currentWeekStart, weekEnd, currentUser);
         }
-
         // Filter by "Type"
         if (currentFilterCriteria.containsKey("Type")) {
             String typeFilter = currentFilterCriteria.get("Type");
@@ -128,6 +141,12 @@ public class WeeklyController implements Initializable,CalendarViewController {
                     .filter(seance -> seance.getSalle().getNom().equals(salleFilter))
                     .collect(Collectors.toList());
         }
+        if (currentFilterCriteria.containsKey("Matière")) {
+            String matiereFilter = currentFilterCriteria.get("Matière");
+            seances = seances.stream()
+                    .filter(seance -> seance.getMatiere().getNom().equals(matiereFilter))
+                    .collect(Collectors.toList());
+        }
 
             for (int i = 1; i < scheduleGrid.getRowCount(); i++) {
                 for (int j = 1; j < scheduleGrid.getColumnCount(); j++) {
@@ -141,6 +160,7 @@ public class WeeklyController implements Initializable,CalendarViewController {
             for (Seance seance : seances) {
                 addSeanceToGrid(seance);
             }
+        highlightCurrentHourCell(currentWeekStart, weekEnd);
 
     }
 
@@ -148,9 +168,9 @@ public class WeeklyController implements Initializable,CalendarViewController {
         ZonedDateTime startZdt = seance.getDtStart().toInstant().atZone(ZoneId.systemDefault());
         ZonedDateTime endZdt = seance.getDtEnd().toInstant().atZone(ZoneId.systemDefault());
 
-// Adjust for daylight saving time from April to October
         Month startMonth = startZdt.getMonth();
         Month endMonth = endZdt.getMonth();
+
 
         if (startMonth.compareTo(Month.APRIL) >= 0 && startMonth.compareTo(Month.OCTOBER) <= 0) {
             startZdt = startZdt.plusHours(1);
@@ -171,8 +191,6 @@ public class WeeklyController implements Initializable,CalendarViewController {
         seancePane.getStyleClass().add("seance-pane");
 
         // Add the hour cell before adding the seance pane
-        highlightCurrentHourCell();
-
         // Add seance details to the pane
         Label typeLabel = new Label(seance.getType().getNom());
         typeLabel.setStyle("-fx-font-weight: bold; -fx-text-fill: blue;");
@@ -188,25 +206,31 @@ public class WeeklyController implements Initializable,CalendarViewController {
         GridPane.setValignment(seancePane, VPos.TOP);
     }
 
-    private void highlightCurrentHourCell() {
+    private void highlightCurrentHourCell(LocalDate weekStart, LocalDate weekEnd) {
         LocalDate today = LocalDate.now();
-        LocalTime now = LocalTime.now();
+        // Check if 'today' is within the week being displayed
+        if (today.isBefore(weekStart) || today.isAfter(weekEnd)) {
+            return; // Do not highlight any cell if the current date is outside the displayed week
+        }
 
-        // Ensure we're within the grid's time range
+        LocalTime now = LocalTime.now();
         if (now.isBefore(LocalTime.of(8, 0)) || now.isAfter(LocalTime.of(19, 0))) {
-            // It's outside the grid's hours, so do not highlight any cell
             return;
         }
 
-        int currentColumn = today.getDayOfWeek().getValue();
+        int currentColumn = today.getDayOfWeek().getValue() - 1; // Adjust based on your column indexing
         int currentRow = calculateRowForTime(now);
         if (currentRow >= 0) {
             Region hourCell = new Region();
-            hourCell.setStyle("-fx-background-color: #faf0f0;"); // Set the background color
-            scheduleGrid.add(hourCell, currentColumn, currentRow);
-            GridPane.setValignment(hourCell, VPos.TOP); // Ensure alignment matches seancePane
+            hourCell.setStyle("-fx-background-color: #eedbbf;"); // Set the background color
+            hourCell.setPrefSize(100, 30); // Example size, adjust as necessary
+            System.out.println("Highlighting cell at: " + currentRow + ", " + currentColumn);
+            scheduleGrid.add(hourCell, currentColumn + 1, currentRow); // Adjust column index if necessary
+            GridPane.setValignment(hourCell, VPos.TOP);
         }
+
     }
+
 
 
     private VBox constructSeanceDetailsPane(Seance seance) {
