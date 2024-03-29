@@ -31,4 +31,18 @@ public class EnseignantService {
         return enseignants;
     }
 
+    public String getEnseignantIdByName(String username) {
+        String id = null;
+        try (PreparedStatement statement = cnx.prepareStatement("SELECT id FROM Enseignant WHERE username = ?")) {
+            statement.setString(1, username);
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                id = resultSet.getString("id");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return id;
+    }
+
 }

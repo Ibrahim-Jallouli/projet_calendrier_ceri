@@ -78,6 +78,7 @@
                 <HBox.margin>
                     <Insets right="15.0" />
                 </HBox.margin>
+                <Button fx:id="clearFilterButton" layoutX="10" layoutY="10" text="Clear Filters" onAction="#handleClearFilter" visible="false" />
             </HBox>
             <!-- Flexible space between the two filters -->
             <Region HBox.hgrow="ALWAYS" />

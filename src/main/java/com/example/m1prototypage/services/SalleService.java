@@ -76,4 +76,21 @@ public class SalleService {
         return salles;
     }
 
+    public String getSalleIdByName(String nom) {
+        String id = null;
+
+        try (PreparedStatement statement = cnx.prepareStatement("SELECT id FROM Salle WHERE nom = ?")) {
+            statement.setString(1, nom);
+            ResultSet resultSet = statement.executeQuery();
+
+            if (resultSet.next()) {
+                id = resultSet.getString("id");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return id;
+    }
+
 }

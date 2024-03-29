@@ -1,5 +1,8 @@
 package com.example.m1prototypage.controller;
 import com.example.m1prototypage.entities.*;
+import com.example.m1prototypage.services.EnseignantService;
+import com.example.m1prototypage.services.FormationService;
+import com.example.m1prototypage.services.SalleService;
 import com.example.m1prototypage.services.SeanceService;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -29,17 +32,17 @@ import java.awt.Desktop;
 
 public class WeeklyController implements Initializable,CalendarViewController {
     private Map<String, String> currentFilterCriteria = new HashMap<>();
-    private User currentUser;
+    private Map<String, String> currentSearchCriteria = new HashMap<>();
+    private User currentUser = UserSession.getInstance().getCurrentUser();
 
-    public void updateViewWithFilters(Map<String, String> filterCriteria, User currentUser) {
-        this.currentFilterCriteria = filterCriteria;
-        this.currentUser = currentUser;
-        updateScheduleAndLabel(); // Refresh the schedule based on the new filters
-    }
-    private void renderSeances(List<Seance> seances) {
-        for (Seance seance : seances) {
-            addSeanceToGrid(seance);
-        }
+
+    @Override
+    public void updateViewWithCriteria(Map<String, String> filterCriteria, Map<String, String> searchCriteria) {
+        // Assuming these are class-level attributes that store the current state
+        currentFilterCriteria = filterCriteria;
+        currentSearchCriteria = searchCriteria; // This now directly assigns the map, assuming it's initialized
+
+        updateScheduleAndLabel(); // This method handles the application of both sets of criteria
     }
 
     @FXML
@@ -103,16 +106,26 @@ public class WeeklyController implements Initializable,CalendarViewController {
         addDayHeaders();
         LocalDate weekEnd = currentWeekStart.plusDays(4);
         User currentUser = UserSession.getInstance().getCurrentUser();
-        List<Seance> seances;
+        List<Seance> seances = new ArrayList<>();
 
-            seances = seanceService.getSeancesForWeek(currentWeekStart, weekEnd,currentUser);
-        if (currentFilterCriteria.containsKey("Matière")) {
-            String matiereFilter = currentFilterCriteria.get("Matière");
-            seances = seances.stream()
-                    .filter(seance -> seance.getMatiere().getNom().equals(matiereFilter))
-                    .collect(Collectors.toList());
+        if (currentSearchCriteria.containsKey("Enseignant")) {
+            EnseignantService enseignantService = new EnseignantService();
+            String enseignant = currentSearchCriteria.get("Enseignant");
+            String enseignantId = enseignantService.getEnseignantIdByName(enseignant).toString();
+            seances = seanceService.getSeancesByCriteriaEnseignant( currentWeekStart, weekEnd, enseignantId);
+        } else if (currentSearchCriteria.containsKey("Salle")) {
+            SalleService salleService = new SalleService();
+            String salle = currentSearchCriteria.get("Salle");
+            String salleId = salleService.getSalleIdByName(salle).toString();
+            seances = seanceService.getSeancesByCriteriaSalle( currentWeekStart, weekEnd,salleId);
+        } else if (currentSearchCriteria.containsKey("Formation")) {
+            FormationService formationService = new FormationService();
+            String formation = currentSearchCriteria.get("Formation");
+            String formationId = formationService.getFormationIdByName(formation).toString();
+            seances = seanceService.getSeancesByCriteriaFormation( currentWeekStart, weekEnd,formationId);
+        } else {
+            seances = seanceService.getSeancesForWeek(currentWeekStart, weekEnd, currentUser);
         }
-
         // Filter by "Type"
         if (currentFilterCriteria.containsKey("Type")) {
             String typeFilter = currentFilterCriteria.get("Type");
@@ -126,6 +139,12 @@ public class WeeklyController implements Initializable,CalendarViewController {
             String salleFilter = currentFilterCriteria.get("Salle");
             seances = seances.stream()
                     .filter(seance -> seance.getSalle().getNom().equals(salleFilter))
+                    .collect(Collectors.toList());
+        }
+        if (currentFilterCriteria.containsKey("Matière")) {
+            String matiereFilter = currentFilterCriteria.get("Matière");
+            seances = seances.stream()
+                    .filter(seance -> seance.getMatiere().getNom().equals(matiereFilter))
                     .collect(Collectors.toList());
         }
 

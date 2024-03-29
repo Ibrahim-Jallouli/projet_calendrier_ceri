@@ -84,4 +84,24 @@ public class FormationService {
 
         return formations;
     }
+
+    public String getFormationIdByName(String nom) {
+        String id = null;
+
+        try (PreparedStatement statement = cnx.prepareStatement("SELECT id FROM Formation WHERE nom = ?")) {
+            statement.setString(1, nom);
+
+            ResultSet resultSet = statement.executeQuery();
+            // Si une formation correspondante est trouvée
+            if (resultSet.next()) {
+                // Récupérez les informations de la formation depuis le résultat de la requête
+                id = resultSet.getString("id");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return id;
+    }
+
 }
