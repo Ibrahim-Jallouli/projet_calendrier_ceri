@@ -105,6 +105,8 @@ public class Seance {
         return "Seance{" +
                 "dtStart=" + dtStart +
                 ", dtEnd=" + dtEnd +
+                ", salle = "+ salle+
+
 
                 '}';
     }

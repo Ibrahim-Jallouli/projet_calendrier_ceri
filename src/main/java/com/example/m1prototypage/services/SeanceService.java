@@ -5,6 +5,7 @@ import com.example.m1prototypage.utils.DataSource;
 
 import java.sql.*;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -110,6 +111,67 @@ public class SeanceService {
         }
         return seances;
     }
+
+    public void ajouterSeance(Seance seance) {
+
+        try {
+            PreparedStatement statement = cnx.prepareStatement("INSERT INTO seance (uid,dtStart, dtEnd, matiere_id,enseignant_id,salle_id, formation_id, type_id, memo_id) VALUES (?,?,?,?,?, ?, ?, ?, ?)");
+            statement.setString(1, seance.getUid());
+            statement.setTimestamp(2, new Timestamp(seance.getDtStart().getTime()));
+            statement.setTimestamp(3, new Timestamp(seance.getDtEnd().getTime()));
+            statement.setInt(4, seance.getMatiere().getId()); // Supposons que l'objet Matiere ait une méthode getId() qui renvoie l'identifiant de la matière
+            statement.setInt(5, seance.getEnseignant().getId()); // Supposons que l'objet Formation ait une méthode getId() qui renvoie l'identifiant de la formation
+            statement.setInt(6, seance.getSalle().getId()); // Supposons que l'objet TYPE ait une méthode getId() qui renvoie l'identifiant du type
+            statement.setInt(7, seance.getFormation().getId()); // Supposons que l'objet TYPE ait une méthode getId() qui renvoie l'identifiant du type
+            statement.setInt(8, seance.getType().getId()); // Supposons que l'objet TYPE ait une méthode getId() qui renvoie l'identifiant du type
+            statement.setInt(9, seance.getMemo().getId()); // Supposons que l'objet TYPE ait une méthode getId() qui renvoie l'identifiant du type
+
+            statement.executeUpdate();
+            // Fermez la connexion et les ressources connexes
+            statement.close();
+            cnx.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            // Gérer les exceptions appropriées (par exemple, logger, afficher un message d'erreur, etc.)
+        }
+    }
+
+    public List<Seance> getSeancesPendantPlageHoraire(LocalDateTime dateTimeDebut, LocalDateTime dateTimeFin) {
+        List<Seance> seancesPendantPlageHoraire = new ArrayList<>();
+
+        try {
+            PreparedStatement statement = cnx.prepareStatement("SELECT * FROM seance WHERE (dtStart = ? AND dtEnd = ?) OR (dtStart >= ? AND dtEnd <= ?)");
+            statement.setTimestamp(1, Timestamp.valueOf(dateTimeDebut));
+            statement.setTimestamp(2, Timestamp.valueOf(dateTimeFin));
+            statement.setTimestamp(3, Timestamp.valueOf(dateTimeDebut));
+            statement.setTimestamp(4, Timestamp.valueOf(dateTimeFin));
+
+            ResultSet resultSet = statement.executeQuery();
+
+            while (resultSet.next()) {
+                Seance seance = new Seance();
+                // Remplir les détails de la séance à partir du résultat de la requête
+                seance.setUid(resultSet.getString("uid"));
+                seance.setDtStart(resultSet.getTimestamp("dtStart"));
+                seance.setDtEnd(resultSet.getTimestamp("dtEnd"));
+                int salleId = resultSet.getInt("salle_id");
+                Salle salle = salleSevice.getSalleById(salleId);
+                seance.setSalle(salle);
+
+
+                seancesPendantPlageHoraire.add(seance);
+            }
+
+            resultSet.close();
+            statement.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            // Gérer les exceptions appropriées
+        }
+
+        return seancesPendantPlageHoraire;
+    }
+
 
 
 }
