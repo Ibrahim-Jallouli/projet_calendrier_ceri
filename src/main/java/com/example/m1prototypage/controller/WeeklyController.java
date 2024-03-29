@@ -10,10 +10,7 @@ import javafx.fxml.Initializable;
 import javafx.geometry.*;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Hyperlink;
-import javafx.scene.control.Label;
-import javafx.scene.control.Separator;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
 
@@ -48,11 +45,21 @@ public class WeeklyController implements Initializable,CalendarViewController {
     @FXML
     private GridPane scheduleGrid;
 
+    @FXML
+    private Button addSeanceButton;
+
     private LocalDate currentWeekStart;
     private SeanceService seanceService = new SeanceService();
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+
+        if (currentUser instanceof Enseignant) {
+            addSeanceButton.setDisable(false); // Enable the button if user is an instance of Enseignant
+        } else {
+            addSeanceButton.setDisable(true); // Otherwise, disable it
+        }
+
         currentWeekStart = LocalDate.now().with(TemporalAdjusters.previousOrSame(DayOfWeek.MONDAY));
         updateScheduleAndLabel();
     }
@@ -291,6 +298,10 @@ public class WeeklyController implements Initializable,CalendarViewController {
         updateScheduleAndLabel();
     }
 
+
+
+
+
     @FXML
     private void ouvrirFormulaireAjout() {
         try {
@@ -304,5 +315,7 @@ public class WeeklyController implements Initializable,CalendarViewController {
             e.printStackTrace();
         }
     }
+
+
 
 }

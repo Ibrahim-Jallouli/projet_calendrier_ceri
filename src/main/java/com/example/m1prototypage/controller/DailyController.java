@@ -1,4 +1,5 @@
 package com.example.m1prototypage.controller;
+import com.example.m1prototypage.entities.Enseignant;
 import com.example.m1prototypage.entities.Seance;
 import com.example.m1prototypage.entities.User;
 import com.example.m1prototypage.entities.UserSession;
@@ -16,6 +17,7 @@ import javafx.geometry.Pos;
 import javafx.geometry.VPos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import javafx.scene.control.Separator;
@@ -56,12 +58,19 @@ public class DailyController implements Initializable, CalendarViewController {
 
     @FXML
     private GridPane scheduleGrid;
+    @FXML
+    private Button addSeanceButton;
 
     private LocalDate currentDay;
     private SeanceService seanceService = new SeanceService();
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        if (currentUser instanceof Enseignant) {
+            addSeanceButton.setDisable(false); // Enable the button if user is an instance of Enseignant
+        } else {
+            addSeanceButton.setDisable(true); // Otherwise, disable it
+        }
         currentDay = LocalDate.now(); // Start with the current day
         updateScheduleAndLabel();
     }
