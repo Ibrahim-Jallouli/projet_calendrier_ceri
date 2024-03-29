@@ -16,7 +16,7 @@ public class SalleService {
     public List<Salle> getAllSalles() {
         List<Salle> salles = new ArrayList<>();
 
-        try (PreparedStatement statement = cnx.prepareStatement("SELECT * FROM Salle")) {
+        try (PreparedStatement statement = cnx.prepareStatement("SELECT * FROM Salle WHERE LENGTH(nom) <= 30;")) {
             ResultSet resultSet = statement.executeQuery();
 
             while (resultSet.next()) {
@@ -74,6 +74,23 @@ public class SalleService {
         }
 
         return salles;
+    }
+
+    public String getSalleIdByName(String nom) {
+        String id = null;
+
+        try (PreparedStatement statement = cnx.prepareStatement("SELECT id FROM Salle WHERE nom = ?")) {
+            statement.setString(1, nom);
+            ResultSet resultSet = statement.executeQuery();
+
+            if (resultSet.next()) {
+                id = resultSet.getString("id");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return id;
     }
 
 }

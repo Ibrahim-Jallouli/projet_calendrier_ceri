@@ -2,12 +2,12 @@ package com.example.m1prototypage.controller;
 
 import com.example.m1prototypage.entities.User;
 import com.example.m1prototypage.entities.UserSession;
-import com.example.m1prototypage.services.MatiereService;
-import com.example.m1prototypage.services.SalleService;
-import com.example.m1prototypage.services.TypeService;
+import com.example.m1prototypage.services.*;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -16,13 +16,12 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import java.io.IOException;
 import java.net.URL;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.ResourceBundle;
+import java.util.*;
 
 public class CalendarController implements Initializable {
 
@@ -45,6 +44,17 @@ public class CalendarController implements Initializable {
 
     @FXML
     private Button toggleDarkModeButton;
+
+    @FXML
+    private ComboBox<String> searchTypeComboBox;
+
+    @FXML
+    private ComboBox<String> searchValueComboBox;
+
+    @FXML
+    private Button clearFilterButton;
+
+
 
     private boolean isDarkModeEnabled = false;
 
@@ -99,7 +109,6 @@ public class CalendarController implements Initializable {
         }
 
         filterValueComboBox.setItems(values);
-        //filterValueComboBox.setEditable(true);
     }
 
 
@@ -107,6 +116,7 @@ public class CalendarController implements Initializable {
         String selectedFilterValue = filterValueComboBox.getValue();
         if (selectedFilterValue != null && !selectedFilterValue.isEmpty()) {
             loadScheduleView(currentViewFxml);
+            clearFilterButton.setVisible(true);
         }
     }
 
@@ -141,31 +151,94 @@ public class CalendarController implements Initializable {
             Parent view = loader.load();
             scheduleContainer.getChildren().setAll(view);
 
-            // Check if the loaded view is the Weekly View
-            if ("weekly-view.fxml".equals(fxmlFile)) {
-                Object controller = loader.getController();
-                if (controller instanceof WeeklyController) {
-                    CalendarViewController weeklyController = (CalendarViewController) controller;
+            Object controller = loader.getController();
+            if (controller instanceof CalendarViewController) {
+                CalendarViewController viewController = (CalendarViewController) controller;
 
-                    Map<String, String> filterCriteria = constructFilterCriteria();
+                // Assuming filterTypeComboBox and filterValueComboBox are for filter criteria
+                Map<String, String> filterCriteria = constructCriteria(filterTypeComboBox, filterValueComboBox);
+                // Assuming searchTypeComboBox and searchValueComboBox are for search criteria
+                Map<String, String> searchCriteria = constructCriteria(searchTypeComboBox, searchValueComboBox);
 
-                    weeklyController.updateViewWithFilters(filterCriteria, currentUser);
-                }
+                // Update the view with both sets of criteria
+                viewController.updateViewWithCriteria(filterCriteria, searchCriteria);
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
-    private Map<String, String> constructFilterCriteria() {
-        Map<String, String> filterCriteria = new HashMap<>();
-        String filterType = filterTypeComboBox.getValue();
-        String filterValueName = filterValueComboBox.getValue();
 
-        if (filterType != null && filterValueName != null) {
-            filterCriteria.put(filterType, filterValueName );
+    private Map<String, String> constructCriteria(ComboBox<String> typeComboBox, ComboBox<String> valueComboBox) {
+        Map<String, String> criteria = new HashMap<>();
+        String type = typeComboBox.getValue();
+        String value = valueComboBox.getValue();
+        if (type != null && value != null && !value.isEmpty()) {
+            criteria.put(type, value);
         }
-        System.out.println("Filter Criteria: " + filterCriteria.toString());
-        return filterCriteria;
+        return criteria;
+    }
+
+    @FXML
+    private void handleSearch() {
+        loadScheduleView(currentViewFxml);
+    }
+
+
+    @FXML
+    private void updateSearchValues() {
+        SalleService salleService = new SalleService();
+        EnseignantService enseignantService = new EnseignantService();
+        FormationService formationService = new FormationService();
+
+        String selectedType = searchTypeComboBox.getValue();
+        List<String> items = new ArrayList<>();
+
+        switch (selectedType) {
+            case "Formation":
+                formationService.getAllFormations().forEach(formation -> items.add(formation.getNom()));
+                break;
+            case "Enseignant":
+                enseignantService.getAllEnseignants().forEach(enseignant -> items.add(enseignant.getUsername()));
+                break;
+            case "Salle":
+                salleService.getAllSalles().forEach(salle -> items.add(salle.getNom()));
+                break;
+        }
+
+        ObservableList<String> observableItems = FXCollections.observableArrayList(items);
+        FilteredList<String> filteredItems = new FilteredList<>(observableItems, p -> true);
+
+        searchValueComboBox.setEditable(true);
+        searchValueComboBox.getEditor().textProperty().addListener((obs, oldValue, newValue) -> {
+            final TextField editor = searchValueComboBox.getEditor();
+            final String selected = searchValueComboBox.getSelectionModel().getSelectedItem();
+
+            // This needs run on the GUI thread to avoid timing issues
+            Platform.runLater(() -> {
+                // If the no item in the list is selected or the selected item isn't equal to the current input, we rebuild the list
+                if (selected == null || !selected.equals(editor.getText())) {
+                    filteredItems.setPredicate(item -> {
+                        // If filter text is empty, display all items.
+                        if (newValue == null || newValue.isEmpty()) {
+                            return true;
+                        }
+                        String lowerCaseFilter = newValue.toLowerCase();
+                        return item.toLowerCase().contains(lowerCaseFilter);
+                    });
+                }
+            });
+        });
+
+        searchValueComboBox.setItems(filteredItems);
+    }
+
+    @FXML
+    private void handleClearFilter(ActionEvent event) {
+        filterTypeComboBox.setValue(null);
+        filterValueComboBox.setValue(null);
+        filterValueComboBox.setItems(FXCollections.observableArrayList());
+        clearFilterButton.setVisible(false);
+        loadScheduleView(currentViewFxml);
     }
 
     @FXML
@@ -191,6 +264,10 @@ public class CalendarController implements Initializable {
         toggleDarkModeButton.setText(label);
 
     }
+
+
+
+
 
 
 }
