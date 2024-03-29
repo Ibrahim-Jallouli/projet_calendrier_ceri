@@ -1,16 +1,87 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="com.example.m1prototypage.controller.AddSeanceForm"
-            prefHeight="400.0" prefWidth="600.0">
-    <VBox spacing="10" alignment="CENTER">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.m1prototypage.controller.AddSeanceForm">
+    <VBox alignment="CENTER" spacing="10">
         <!-- Assurez-vous que le VBox est bien positionné dans l'AnchorPane -->
         <children>
-            <TextField fx:id="nomSeance" promptText="Nom de la séance" />
-            <Button text="Ajouter" onAction="#ajouterSeance" />
+          <VBox prefHeight="330.0" prefWidth="488.0" spacing="10" style=" -fx-margin: 10px; -fx-padding: 10px;">
+
+                <VBox prefHeight="115.0" prefWidth="504.0" spacing="10" style=" -fx-padding: 10px;">
+                    <HBox spacing="10" style=" -fx-margin: 10px;">
+                        <Label>Date de début :</Label>
+                        <DatePicker fx:id="dateDebutPicker" />
+                        <ComboBox fx:id="heureDebutComboBox" prefWidth="80" />
+                    </HBox>
+
+                    <HBox prefHeight="25.0" prefWidth="464.0" spacing="10.0" style=" -fx-margin: 10px;">
+                        <Label>Date de fin :</Label>
+                        <DatePicker fx:id="dateFinPicker">
+                     <HBox.margin>
+                        <Insets left="17.0" />
+                     </HBox.margin></DatePicker>
+                        <ComboBox fx:id="heureFinComboBox" prefWidth="80" />
+                  <VBox.margin>
+                     <Insets bottom="10.0" />
+                  </VBox.margin>
+                    </HBox>
+   
+                    <Button onAction="#saisirInfos" style=" -fx-margin: 10px;" text="Saisir Infos">
+                  <padding>
+                     <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                  </padding>
+               </Button>
+                </VBox>
+                <VBox fx:id="infoBox" spacing="10" style=" -fx-padding: 10px;" visible="false">
+                    <TextField fx:id="uid" promptText="UID" />
+                    <HBox spacing="15">
+                        <ComboBox fx:id="matiereComboBox" promptText="Matière">
+                     <padding>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </padding></ComboBox>
+                        <ComboBox fx:id="formationComboBox" promptText="Sélectionner une formation">
+                     <padding>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </padding></ComboBox>
+                    </HBox>
+
+                    <HBox spacing="15">
+                        <ComboBox fx:id="memoComboBox" promptText="Mémo">
+                     <padding>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </padding></ComboBox>
+                        <ComboBox fx:id="typeComboBox" promptText="Sélectionner un type">
+                     <padding>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </padding></ComboBox>
+                    </HBox>
+
+                    <ComboBox fx:id="salleComboBox" promptText="Sélectionner une salle">
+                  <VBox.margin>
+                     <Insets bottom="10.0" />
+                  </VBox.margin>
+                  <padding>
+                     <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                  </padding></ComboBox>
+
+                    <Button onAction="#ajouterSeance" prefHeight="37.0" prefWidth="88.0" style=" -fx-margin: 10px;" text="Ajouter">
+                  <padding>
+                     <Insets bottom="10.0" left="15.0" right="15.0" top="10.0" />
+                  </padding></Button>
+
+                </VBox>
+
+
+          </VBox>
         </children>
     </VBox>
 </AnchorPane>
