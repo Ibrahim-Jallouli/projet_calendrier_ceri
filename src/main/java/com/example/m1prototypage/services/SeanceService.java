@@ -75,7 +75,7 @@ public class SeanceService {
 
     }
 
-    public List<Seance> getSeancesForWeek(LocalDate weekStart, LocalDate weekEnd, User user) {
+    public List<Seance> getSeancesIntervalFrom(LocalDate weekStart, LocalDate weekEnd, User user) {
         List<Seance> seances = new ArrayList<>();
         String query;
         // Determine the type of user and adjust the query accordingly

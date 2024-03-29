@@ -124,7 +124,7 @@ public class WeeklyController implements Initializable,CalendarViewController {
             String formationId = formationService.getFormationIdByName(formation).toString();
             seances = seanceService.getSeancesByCriteriaFormation( currentWeekStart, weekEnd,formationId);
         } else {
-            seances = seanceService.getSeancesForWeek(currentWeekStart, weekEnd, currentUser);
+            seances = seanceService.getSeancesIntervalFrom(currentWeekStart, weekEnd, currentUser);
         }
         // Filter by "Type"
         if (currentFilterCriteria.containsKey("Type")) {
@@ -167,7 +167,6 @@ public class WeeklyController implements Initializable,CalendarViewController {
         ZonedDateTime startZdt = seance.getDtStart().toInstant().atZone(ZoneId.systemDefault());
         ZonedDateTime endZdt = seance.getDtEnd().toInstant().atZone(ZoneId.systemDefault());
 
-// Adjust for daylight saving time from April to October
         Month startMonth = startZdt.getMonth();
         Month endMonth = endZdt.getMonth();
 
@@ -211,9 +210,7 @@ public class WeeklyController implements Initializable,CalendarViewController {
         LocalDate today = LocalDate.now();
         LocalTime now = LocalTime.now();
 
-        // Ensure we're within the grid's time range
         if (now.isBefore(LocalTime.of(8, 0)) || now.isAfter(LocalTime.of(19, 0))) {
-            // It's outside the grid's hours, so do not highlight any cell
             return;
         }
 
@@ -221,7 +218,7 @@ public class WeeklyController implements Initializable,CalendarViewController {
         int currentRow = calculateRowForTime(now);
         if (currentRow >= 0) {
             Region hourCell = new Region();
-            hourCell.setStyle("-fx-background-color: #faf0f0;"); // Set the background color
+            hourCell.setStyle("-fx-background-color: #eedbbf;"); // Set the background color
             scheduleGrid.add(hourCell, currentColumn, currentRow);
             GridPane.setValignment(hourCell, VPos.TOP); // Ensure alignment matches seancePane
         }
