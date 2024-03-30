@@ -10,13 +10,13 @@ public class Seance {
     private Enseignant enseignant;
     private Salle salle;
     private Formation formation;
-    private TYPE type;
+    private Type type;
     private Memo memo;
 
     public Seance() {
     }
 
-    public Seance(String uid, Date dtStart, Date dtEnd, Matiere matiere, Enseignant enseignant, Salle salle, Formation formation, TYPE type, Memo memo) {
+    public Seance(String uid, Date dtStart, Date dtEnd, Matiere matiere, Enseignant enseignant, Salle salle, Formation formation, Type type, Memo memo) {
         this.uid = uid;
         this.dtStart = dtStart;
         this.dtEnd = dtEnd;
@@ -84,11 +84,11 @@ public class Seance {
         this.formation = formation;
     }
 
-    public TYPE getType() {
+    public Type getType() {
         return type;
     }
 
-    public void setType(TYPE type) {
+    public void setType(Type type) {
         this.type = type;
     }
 

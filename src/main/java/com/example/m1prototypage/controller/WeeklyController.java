@@ -163,6 +163,7 @@ public class WeeklyController implements Initializable,CalendarViewController {
             for (Seance seance : seances) {
                 addSeanceToGrid(seance);
             }
+        System.out.println("are we here ?");
         highlightCurrentHourCell(currentWeekStart, weekEnd);
 
     }
@@ -191,7 +192,13 @@ public class WeeklyController implements Initializable,CalendarViewController {
 
         VBox seanceDetails = constructSeanceDetailsPane(seance);
         StackPane seancePane = new StackPane();
-        seancePane.getStyleClass().add("seance-pane");
+        if (seance.getUid().toUpperCase().contains("RED")) {
+            seancePane.getStyleClass().add("seance-red");
+        } else {
+            seancePane.getStyleClass().add("seance-pane");
+        }
+
+
 
         // Add the hour cell before adding the seance pane
         // Add seance details to the pane
@@ -293,7 +300,10 @@ public class WeeklyController implements Initializable,CalendarViewController {
             Stage stage = new Stage();
             stage.setTitle("Ajouter une séance");
             stage.setScene(new Scene(root));
-            stage.show();
+            System.out.println("am here");
+            stage.showAndWait();
+            System.out.println("now am here after we colsed it ");
+            updateScheduleAndLabel();
         } catch (Exception e) {
             e.printStackTrace();
         }

@@ -64,7 +64,7 @@ public class SeanceService {
         Formation formation = formationService.getFormationById(formationId);
 
         int type_id = resultSet.getInt("type_id");
-        TYPE type = typeService.getTypeById(type_id);
+        Type type = typeService.getTypeById(type_id);
 
 
         int memo_id = resultSet.getInt("memo_id");
@@ -120,15 +120,14 @@ public class SeanceService {
             statement.setTimestamp(3, new Timestamp(seance.getDtEnd().getTime()));
             statement.setInt(4, seance.getMatiere().getId()); // Supposons que l'objet Matiere ait une méthode getId() qui renvoie l'identifiant de la matière
             statement.setInt(5, seance.getEnseignant().getId()); // Supposons que l'objet Formation ait une méthode getId() qui renvoie l'identifiant de la formation
-            statement.setInt(6, seance.getSalle().getId()); // Supposons que l'objet TYPE ait une méthode getId() qui renvoie l'identifiant du type
-            statement.setInt(7, seance.getFormation().getId()); // Supposons que l'objet TYPE ait une méthode getId() qui renvoie l'identifiant du type
-            statement.setInt(8, seance.getType().getId()); // Supposons que l'objet TYPE ait une méthode getId() qui renvoie l'identifiant du type
-            statement.setInt(9, seance.getMemo().getId()); // Supposons que l'objet TYPE ait une méthode getId() qui renvoie l'identifiant du type
+            statement.setInt(6, seance.getSalle().getId()); // Supposons que l'objet Type ait une méthode getId() qui renvoie l'identifiant du type
+            statement.setInt(7, seance.getFormation().getId()); // Supposons que l'objet Type ait une méthode getId() qui renvoie l'identifiant du type
+            statement.setInt(8, seance.getType().getId()); // Supposons que l'objet Type ait une méthode getId() qui renvoie l'identifiant du type
+            statement.setInt(9, seance.getMemo().getId()); // Supposons que l'objet Type ait une méthode getId() qui renvoie l'identifiant du type
 
             statement.executeUpdate();
             // Fermez la connexion et les ressources connexes
             statement.close();
-            cnx.close();
         } catch (SQLException e) {
             e.printStackTrace();
             // Gérer les exceptions appropriées (par exemple, logger, afficher un message d'erreur, etc.)
@@ -139,20 +138,19 @@ public class SeanceService {
         List<Seance> seancesPendantPlageHoraire = new ArrayList<>();
 
         try {
-            PreparedStatement statement = cnx.prepareStatement("SELECT * FROM seance WHERE (dtStart = ? AND dtEnd = ?) OR (dtStart >= ? AND dtEnd <= ?)");
+            PreparedStatement statement = cnx.prepareStatement("SELECT * FROM seance WHERE dtEnd > ? AND dtStart < ?");
             statement.setTimestamp(1, Timestamp.valueOf(dateTimeDebut));
             statement.setTimestamp(2, Timestamp.valueOf(dateTimeFin));
-            statement.setTimestamp(3, Timestamp.valueOf(dateTimeDebut));
-            statement.setTimestamp(4, Timestamp.valueOf(dateTimeFin));
-
             ResultSet resultSet = statement.executeQuery();
 
             while (resultSet.next()) {
                 Seance seance = new Seance();
-                // Remplir les détails de la séance à partir du résultat de la requête
                 seance.setUid(resultSet.getString("uid"));
                 seance.setDtStart(resultSet.getTimestamp("dtStart"));
                 seance.setDtEnd(resultSet.getTimestamp("dtEnd"));
+                int formationId = resultSet.getInt("formation_id");
+                Formation formation = formationService.getFormationById(formationId);
+                seance.setFormation(formation);
                 int salleId = resultSet.getInt("salle_id");
                 Salle salle = salleSevice.getSalleById(salleId);
                 seance.setSalle(salle);
@@ -165,7 +163,6 @@ public class SeanceService {
             statement.close();
         } catch (SQLException e) {
             e.printStackTrace();
-            // Gérer les exceptions appropriées
         }
 
         return seancesPendantPlageHoraire;

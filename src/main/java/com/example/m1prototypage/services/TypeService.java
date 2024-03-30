@@ -1,7 +1,6 @@
 package com.example.m1prototypage.services;
 
-import com.example.m1prototypage.entities.Matiere;
-import com.example.m1prototypage.entities.TYPE;
+import com.example.m1prototypage.entities.Type;
 import com.example.m1prototypage.utils.DataSource;
 
 import java.sql.Connection;
@@ -15,15 +14,15 @@ public class TypeService {
 
     Connection cnx = DataSource.getInstance().getCnx();
 
-    public List<TYPE> getAllTypes() {
-        List<TYPE> types = new ArrayList<>();
+    public List<Type> getAllTypes() {
+        List<Type> types = new ArrayList<>();
 
         try (PreparedStatement statement = cnx.prepareStatement("SELECT * FROM Type")) {
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
                 int id = resultSet.getInt("id");
                 String nom = resultSet.getString("name");
-                TYPE type = new TYPE(id, nom);
+                Type type = new Type(id, nom);
                 types.add(type);
             }
         } catch (SQLException e) {
@@ -32,15 +31,15 @@ public class TypeService {
         return types;
     }
 
-    public TYPE getTypeById(int id) {
-        TYPE type = null;
+    public Type getTypeById(int id) {
+        Type type = null;
 
         try (PreparedStatement statement = cnx.prepareStatement("SELECT * FROM Type WHERE id = ?")) {
             statement.setInt(1, id);
             ResultSet resultSet = statement.executeQuery();
             if (resultSet.next()) {
                 String nom = resultSet.getString("name");
-                type = new TYPE(id, nom);
+                type = new Type(id, nom);
             }
         } catch (SQLException e) {
             e.printStackTrace();

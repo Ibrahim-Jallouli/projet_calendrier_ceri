@@ -1,12 +1,12 @@
 package com.example.m1prototypage.entities;
 
-public class TYPE {
+public class Type {
     //TD,TP,CM,Evaluation,Oraux,Rattrapage,Conference
 
     private int id;
     private String nom;
 
-    public TYPE(int id, String nom) {
+    public Type(int id, String nom) {
         this.id = id;
         this.nom = nom;
     }

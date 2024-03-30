@@ -52,6 +52,13 @@
     -fx-background-radius: 5;
 }
 
+.seance-red {
+    -fx-background-color: #e5acac;
+    -fx-border-color: #a1a1a1;
+    -fx-border-radius: 5;
+    -fx-background-radius: 5;
+}
+
 .time-marker {
     -fx-background-color: red; /* Visible color to stand out */
     -fx-pref-height: 0px; /* Thin line */
