@@ -8,16 +8,14 @@ import java.sql.*;
 public class UserService {
     Connection cnx = DataSource.getInstance().getCnx();
     FormationService formationService= new FormationService();
-
     public User getUser(String username) {
-        // Explicitly initialize user to null
+
         User user = null;
         try (PreparedStatement statement = cnx.prepareStatement("SELECT id,username, password, email, null AS formation_id FROM `Enseignant` WHERE username = ?\n" +
                 "UNION " +
                 "SELECT id,username, password, null AS email, formation_id FROM `Etudiant` WHERE username = ?;")) {
             statement.setString(1, username);
             statement.setString(2, username);
-
             ResultSet resultSet = statement.executeQuery();
 
             if (resultSet.next()) {
@@ -37,26 +35,21 @@ public class UserService {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
         return user;
     }
 
     public Enseignant getEnseignantById(int id) {
-
         User user = null;
+
         try (PreparedStatement statement = cnx.prepareStatement("SELECT * FROM `Enseignant` WHERE id = ?")){
-
             statement.setInt(1, id);
-
             ResultSet resultSet = statement.executeQuery();
-
             if (resultSet.next()) {
                 String nom = resultSet.getString("username");
                 String mail = resultSet.getString("email");
                 String password = resultSet.getString("password");
                 user = new Enseignant(id, nom,password,mail);
             }
-
         }catch (SQLException e) {
             e.printStackTrace();
         }

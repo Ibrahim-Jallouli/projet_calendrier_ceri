@@ -66,16 +66,10 @@ public class FormationService {
         try (PreparedStatement statement = cnx.prepareStatement("SELECT * FROM Formation")) {
 
             ResultSet resultSet = statement.executeQuery();
-            // Tant qu'il y a des formations dans le résultat
             while (resultSet.next()) {
-                // Récupérer les informations de la formation depuis le résultat de la requête
                 int id = resultSet.getInt("id");
                 String nom = resultSet.getString("nom");
-
-                // Créer une instance de la classe Formation avec les informations récupérées
                 Formation formation = new Formation(id, nom);
-
-                // Ajouter la formation à la liste des formations
                 formations.add(formation);
             }
         } catch (SQLException e) {
@@ -87,20 +81,16 @@ public class FormationService {
 
     public String getFormationIdByName(String nom) {
         String id = null;
-
         try (PreparedStatement statement = cnx.prepareStatement("SELECT id FROM Formation WHERE nom = ?")) {
             statement.setString(1, nom);
 
             ResultSet resultSet = statement.executeQuery();
-            // Si une formation correspondante est trouvée
             if (resultSet.next()) {
-                // Récupérez les informations de la formation depuis le résultat de la requête
                 id = resultSet.getString("id");
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
         return id;
     }
 

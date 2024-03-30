@@ -136,7 +136,7 @@ public class CalendarController implements Initializable {
                     currentViewFxml = "daily-view.fxml";
                     break;
                 default:
-                    return; // Early return if newValue is unexpected
+                    return;
             }
             if (!currentViewFxml.equals(previousViewFxml)) {
                 loadScheduleView(currentViewFxml);
@@ -155,12 +155,8 @@ public class CalendarController implements Initializable {
             if (controller instanceof CalendarViewController) {
                 CalendarViewController viewController = (CalendarViewController) controller;
 
-                // Assuming filterTypeComboBox and filterValueComboBox are for filter criteria
                 Map<String, String> filterCriteria = constructCriteria(filterTypeComboBox, filterValueComboBox);
-                // Assuming searchTypeComboBox and searchValueComboBox are for search criteria
                 Map<String, String> searchCriteria = constructCriteria(searchTypeComboBox, searchValueComboBox);
-
-                // Update the view with both sets of criteria
                 viewController.updateViewWithCriteria(filterCriteria, searchCriteria);
             }
         } catch (IOException e) {

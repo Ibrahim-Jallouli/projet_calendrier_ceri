@@ -11,7 +11,6 @@ public class MemoService {
 
     Connection cnx = DataSource.getInstance().getCnx();
 
-
     public Memo getMemoById(int memoId) {
         Memo memo = null;
         try (PreparedStatement statement = cnx.prepareStatement("SELECT * FROM Memo WHERE id = ?")) {
@@ -25,13 +24,11 @@ public class MemoService {
         }
         return memo;
     }
-
     private Memo mapToMemo(ResultSet resultSet) throws SQLException {
         int id = resultSet.getInt("id");
         String description = resultSet.getString("description");
         return new Memo(id, description);
     }
-
     public List<Memo> getAllMemos() {
         List<Memo> memos = new ArrayList<>();
         try (Statement statement = cnx.createStatement()) {

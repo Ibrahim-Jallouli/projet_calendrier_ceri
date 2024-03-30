@@ -12,36 +12,29 @@ public class SalleService {
 
     Connection cnx = DataSource.getInstance().getCnx();
 
-
     public List<Salle> getAllSalles() {
         List<Salle> salles = new ArrayList<>();
-
         try (PreparedStatement statement = cnx.prepareStatement("SELECT * FROM Salle WHERE LENGTH(nom) <= 30;")) {
             ResultSet resultSet = statement.executeQuery();
-
             while (resultSet.next()) {
                 int id = resultSet.getInt("id");
                 String nom = resultSet.getString("nom");
                 boolean disponible = resultSet.getBoolean("disponible");
-
                 Salle salle = new Salle(id, nom, disponible);
                 salles.add(salle);
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
         return salles;
     }
 
 
     public Salle getSalleById(int id) {
         Salle salle = null;
-
         try (PreparedStatement statement = cnx.prepareStatement("SELECT * FROM Salle WHERE id = ?")) {
             statement.setInt(1, id);
             ResultSet resultSet = statement.executeQuery();
-
             if (resultSet.next()) {
                 String nom = resultSet.getString("nom");
                 boolean disponible = resultSet.getBoolean("disponible");
@@ -50,7 +43,6 @@ public class SalleService {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
         return salle;
     }
 
@@ -60,19 +52,16 @@ public class SalleService {
 
         try (PreparedStatement statement = cnx.prepareStatement("SELECT * FROM Salle WHERE disponible = true")) {
             ResultSet resultSet = statement.executeQuery();
-
             while (resultSet.next()) {
                 int id = resultSet.getInt("id");
                 String nom = resultSet.getString("nom");
                 boolean disponible = resultSet.getBoolean("disponible");
-
                 Salle salle = new Salle(id, nom, disponible);
                 salles.add(salle);
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
         return salles;
     }
 
@@ -82,14 +71,12 @@ public class SalleService {
         try (PreparedStatement statement = cnx.prepareStatement("SELECT id FROM Salle WHERE nom = ?")) {
             statement.setString(1, nom);
             ResultSet resultSet = statement.executeQuery();
-
             if (resultSet.next()) {
                 id = resultSet.getString("id");
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
         return id;
     }
 

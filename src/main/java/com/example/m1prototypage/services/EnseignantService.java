@@ -1,8 +1,6 @@
 package com.example.m1prototypage.services;
-
 import com.example.m1prototypage.entities.Enseignant;
 import com.example.m1prototypage.utils.DataSource;
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

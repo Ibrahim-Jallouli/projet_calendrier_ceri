@@ -46,7 +46,6 @@ public class LoginController implements Initializable {
         passwordErrorLabel.setText("");
         loginErrorLabel.setText("");
 
-        // Input validation
         boolean inputValid = true;
         if (usernameField.getText().isEmpty()) {
             usernameErrorLabel.setText("Le champ Identifiant est vide.");
@@ -62,7 +61,6 @@ public class LoginController implements Initializable {
             return;
         }
 
-        // Attempt to log in
         User user = userService.getUser(usernameField.getText());
         if (user != null && user.getPassword().equals(passwordField.getText())) {
             System.out.println("Identifiants corrects");

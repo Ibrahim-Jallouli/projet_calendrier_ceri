@@ -16,7 +16,6 @@ public class MatiereService {
 
         try (PreparedStatement statement = cnx.prepareStatement("SELECT * FROM Matiere")) {
             ResultSet resultSet = statement.executeQuery();
-
             while (resultSet.next()) {
                 int id = resultSet.getInt("id");
                 String nom = resultSet.getString("nom");
@@ -27,7 +26,6 @@ public class MatiereService {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
         return matieres;
     }
 
@@ -37,7 +35,6 @@ public class MatiereService {
         try (PreparedStatement statement = cnx.prepareStatement("SELECT * FROM Matiere WHERE id = ?")) {
             statement.setInt(1, id);
             ResultSet resultSet = statement.executeQuery();
-
             if (resultSet.next()) {
                 String nom = resultSet.getString("nom");
                 matiere = new Matiere(id, nom);
@@ -45,7 +42,6 @@ public class MatiereService {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
         return matiere;
     }
 

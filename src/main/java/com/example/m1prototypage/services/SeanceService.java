@@ -12,7 +12,6 @@ import java.util.List;
 public class SeanceService {
 
     Connection cnx = DataSource.getInstance().getCnx();
-
     MatiereService matiereService = new MatiereService();
     SalleService salleSevice = new SalleService();
     FormationService formationService = new FormationService();
