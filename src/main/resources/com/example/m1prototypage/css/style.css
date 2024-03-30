@@ -58,6 +58,18 @@
     -fx-border-radius: 5;
     -fx-background-radius: 5;
 }
+.seance-blue {
+    -fx-background-color: #c4e5ef;
+    -fx-border-color: #a1a1a1;
+    -fx-border-radius: 5;
+    -fx-background-radius: 5;
+}
+.seance-yellow {
+    -fx-background-color: #e5d1ac;
+    -fx-border-color: #a1a1a1;
+    -fx-border-radius: 5;
+    -fx-background-radius: 5;
+}
 
 .time-marker {
     -fx-background-color: red; /* Visible color to stand out */

@@ -186,7 +186,18 @@ public class DailyController implements Initializable, CalendarViewController {
 
         VBox seanceDetails = constructSeanceDetailsPane(seance);
         StackPane seancePane = new StackPane();
-        seancePane.getStyleClass().add("seance-pane");
+        String uidUpper = seance.getUid().toUpperCase();
+
+        if (uidUpper.contains("RED")) {
+            seancePane.getStyleClass().add("seance-red");
+        } else if (uidUpper.contains("BLUE")) {
+            seancePane.getStyleClass().add("seance-blue");
+        } else if (uidUpper.contains("YELLOW")) {
+            seancePane.getStyleClass().add("seance-yellow");
+        } else {
+            seancePane.getStyleClass().add("seance-pane");
+        }
+
 
         highlightCurrentHourCell();
 

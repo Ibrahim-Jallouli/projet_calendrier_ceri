@@ -28,6 +28,9 @@ public class AddSeanceForm {
     private ComboBox<String> typeComboBox;
 
     @FXML
+    private ComboBox<String> colorComboBox;
+
+    @FXML
     private ComboBox<String> formationComboBox;
 
     @FXML
@@ -47,7 +50,6 @@ public class AddSeanceForm {
 
     @FXML private ComboBox heureDebutComboBox;
     @FXML private ComboBox heureFinComboBox;
-
     @FXML private TextField uid;
 
     FormationService formationService;
@@ -70,6 +72,14 @@ public class AddSeanceForm {
         typeService = new TypeService();
         matiereService = new MatiereService();
         formationService = new FormationService();
+        colorComboBox.setItems(FXCollections.observableArrayList("RED", "BLUE", "YELLOW"));
+
+        colorComboBox.valueProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue != null) {
+                int randomNumber = new Random().nextInt(255) + 1;
+                uid.setText(newValue + randomNumber);
+            }
+        });
 
         dateDebutPicker.valueProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue != null) {
@@ -83,7 +93,7 @@ public class AddSeanceForm {
         List<String> heures = new ArrayList<>();
 
         while (heureDebut.isBefore(heureFin.plusMinutes(1))) {
-            heures.add(heureDebut.format(DateTimeFormatter.ofPattern("HH:mm:ss")));
+            heures.add(heureDebut.format(DateTimeFormatter.ofPattern("HH:mm")));
             heureDebut = heureDebut.plusMinutes(30);
         }
 
@@ -122,8 +132,6 @@ public class AddSeanceForm {
 
             LocalDateTime dateTimeDebut = LocalDateTime.of(dateDebut, heureDebut);
             LocalDateTime dateTimeFin = LocalDateTime.of(dateFin, heureFin);
-            System.out.println(dateTimeDebut);
-            System.out.println(dateTimeFin);
 
             List<Salle> sallesDisponibles = determineSallesDisponibles(dateTimeDebut,dateTimeFin);
             for (Salle s:sallesDisponibles){
@@ -168,13 +176,18 @@ public class AddSeanceForm {
 
         } else {
             // Afficher un message d'erreur si les dates ne sont pas valides
-            System.out.println("Veuillez sélectionner des dates valides.");
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Erreur de Date");
+            alert.setHeaderText(null);
+            alert.setContentText("Veuillez sélectionner des dates valides.");
+
+            alert.showAndWait();
         }
+
     }
 
     private List<Salle> determineSallesDisponibles(LocalDateTime dateTimeDebut, LocalDateTime dateTimeFin) {
         List<Seance> seancesPendantPlageHoraire = seanceService.getSeancesPendantPlageHoraire(dateTimeDebut, dateTimeFin);
-        System.out.println(seancesPendantPlageHoraire);
 
         List<Salle> toutesLesSalles = salleService.getAllSalles();
         List<Salle> sallesDisponibles = new ArrayList<>(toutesLesSalles);
@@ -184,7 +197,6 @@ public class AddSeanceForm {
             while (iterator.hasNext()) {
                 Salle salle = iterator.next();
                 if (salle.getId() == seance.getSalle().getId()) {
-                    System.out.println("Removing salle: " + salle.getNom()); // Print the salle being removed
                     iterator.remove(); // This removes the current salle from sallesDisponibles
                 }
             }
@@ -195,7 +207,6 @@ public class AddSeanceForm {
 
     private List<Formation> determineFormationsDisponibles(LocalDateTime dateTimeDebut, LocalDateTime dateTimeFin) {
         List<Seance> seancesPendantPlageHoraire = seanceService.getSeancesPendantPlageHoraire(dateTimeDebut, dateTimeFin);
-        System.out.println(seancesPendantPlageHoraire);
         List<Formation> toutesLesFormations = formationService.getAllFormations();
         List<Formation> formationsDisponibles = new ArrayList<>(toutesLesFormations);
 
@@ -205,7 +216,6 @@ public class AddSeanceForm {
             while (iterator.hasNext()) {
                 Formation formation = iterator.next();
                 if (formation.getId() == seance.getFormation().getId()) {
-                    System.out.println("Removing formation: " + formation.getNom());
                     iterator.remove();
                 }
             }
@@ -253,9 +263,7 @@ public class AddSeanceForm {
             String nomSalle = salleComboBox.getValue();
             String memo = memoComboBox.getValue();
             String UID = uid.getText();
-            System.out.println("formation value : "+nomFormation);
-            // print the map that contain all formations values
-            System.out.println("formations : "+formations);
+
 
         // Récupérer les autres informations nécessaires depuis le formulaire
             LocalDate dateDebut = dateDebutPicker.getValue();

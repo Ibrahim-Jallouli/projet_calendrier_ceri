@@ -42,7 +42,11 @@
                </Button>
                 </VBox>
                 <VBox fx:id="infoBox" spacing="10" style=" -fx-padding: 10px;" visible="false">
-                    <TextField fx:id="uid" promptText="UID" />
+                    <HBox spacing="15">
+                        <ComboBox fx:id="colorComboBox"/>
+
+                        <TextField fx:id="uid" promptText="UID" />
+                    </HBox>
                     <HBox spacing="15">
                         <ComboBox fx:id="matiereComboBox" promptText="Matière">
                      <padding>

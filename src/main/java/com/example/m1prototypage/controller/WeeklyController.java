@@ -163,7 +163,6 @@ public class WeeklyController implements Initializable,CalendarViewController {
             for (Seance seance : seances) {
                 addSeanceToGrid(seance);
             }
-        System.out.println("are we here ?");
         highlightCurrentHourCell(currentWeekStart, weekEnd);
 
     }
@@ -192,11 +191,18 @@ public class WeeklyController implements Initializable,CalendarViewController {
 
         VBox seanceDetails = constructSeanceDetailsPane(seance);
         StackPane seancePane = new StackPane();
-        if (seance.getUid().toUpperCase().contains("RED")) {
+        String uidUpper = seance.getUid().toUpperCase();
+
+        if (uidUpper.contains("RED")) {
             seancePane.getStyleClass().add("seance-red");
+        } else if (uidUpper.contains("BLUE")) {
+            seancePane.getStyleClass().add("seance-blue");
+        } else if (uidUpper.contains("YELLOW")) {
+            seancePane.getStyleClass().add("seance-yellow");
         } else {
             seancePane.getStyleClass().add("seance-pane");
         }
+
 
 
 
@@ -232,7 +238,6 @@ public class WeeklyController implements Initializable,CalendarViewController {
             Region hourCell = new Region();
             hourCell.setStyle("-fx-background-color: #eedbbf;");
             hourCell.setPrefSize(100, 30);
-            System.out.println("Highlighting cell at: " + currentRow + ", " + currentColumn);
             scheduleGrid.add(hourCell, currentColumn + 1, currentRow);
             GridPane.setValignment(hourCell, VPos.TOP);
         }
@@ -300,9 +305,7 @@ public class WeeklyController implements Initializable,CalendarViewController {
             Stage stage = new Stage();
             stage.setTitle("Ajouter une séance");
             stage.setScene(new Scene(root));
-            System.out.println("am here");
             stage.showAndWait();
-            System.out.println("now am here after we colsed it ");
             updateScheduleAndLabel();
         } catch (Exception e) {
             e.printStackTrace();
