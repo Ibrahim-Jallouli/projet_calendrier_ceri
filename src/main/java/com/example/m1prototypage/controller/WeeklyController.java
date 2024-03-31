@@ -45,11 +45,21 @@ public class WeeklyController implements Initializable,CalendarViewController {
     @FXML
     private Button addSeanceButton;
 
+    @FXML
+    private Label currentWeekLabel;
+
+    @FXML
+    private Button previousWeekButton;
+
+    @FXML
+    private Button nextWeekButton;
+
     private LocalDate currentWeekStart;
     private SeanceService seanceService = new SeanceService();
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        HBox.setMargin(previousWeekButton, new Insets(0, 0, 0, 105)); // Adding left margin
 
         if (currentUser instanceof Enseignant) {
             addSeanceButton.setDisable(false);
@@ -60,6 +70,11 @@ public class WeeklyController implements Initializable,CalendarViewController {
         updateScheduleAndLabel();
     }
 
+    private void updateDayLabel() {
+        LocalDate today = LocalDate.now(); // Get the current system date
+        String formattedDate = today.format(DateTimeFormatter.ofPattern("EE d / MM", Locale.FRENCH));
+        currentWeekLabel.setText(formattedDate); // Update the label with the formatted date
+    }
 
 
     private void addDayHeaders() {
@@ -105,6 +120,7 @@ public class WeeklyController implements Initializable,CalendarViewController {
 
     private void updateScheduleAndLabel() {
         scheduleGrid.getChildren().clear();
+        updateDayLabel();
         addHourLabels();
         addDayHeaders();
         LocalDate weekEnd = currentWeekStart.plusDays(4);

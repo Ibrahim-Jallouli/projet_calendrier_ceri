@@ -22,11 +22,7 @@ import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import javafx.scene.control.Separator;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Region;
-import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 import javafx.stage.Stage;
 import java.awt.*;
 import java.io.IOException;
@@ -57,15 +53,20 @@ public class DailyController implements Initializable, CalendarViewController {
     private User currentUser = UserSession.getInstance().getCurrentUser();
 
     @FXML
+    private Label currentDayLabel;
+    @FXML
     private GridPane scheduleGrid;
     @FXML
     private Button addSeanceButton;
+    @FXML
+    private Button previousDayButton;
 
     private LocalDate currentDay;
     private SeanceService seanceService = new SeanceService();
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        HBox.setMargin(previousDayButton, new Insets(0, 0, 0, 105)); // Adding left margin
         if (currentUser instanceof Enseignant) {
             addSeanceButton.setDisable(false);
         } else {
@@ -80,6 +81,13 @@ public class DailyController implements Initializable, CalendarViewController {
         currentFilterCriteria = filterCriteria;
         currentSearchCriteria = searchCriteria;
         updateScheduleAndLabel();
+    }
+
+
+    private void updateDayLabel() {
+        LocalDate today = LocalDate.now(); // Get the current system date
+        String formattedDate = today.format(DateTimeFormatter.ofPattern("EE d / MM", Locale.FRENCH));
+        currentDayLabel.setText(formattedDate); // Update the label with the formatted date
     }
 
     private void addDayHeader() {
@@ -106,6 +114,7 @@ public class DailyController implements Initializable, CalendarViewController {
 
     private void updateScheduleAndLabel() {
         scheduleGrid.getChildren().clear();
+        updateDayLabel();
         addDayHeader();
         addHourLabels();
         LocalDate dayEnd = currentDay;

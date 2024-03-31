@@ -230,4 +230,20 @@ public class SeanceService {
         return seances;
     }
 
+
+    public int countSessionsOnDate(LocalDate date) {
+        int count = 0;
+        String query = "SELECT COUNT(*) FROM Seance WHERE DATE(dtStart) = ?";
+        try (PreparedStatement statement = cnx.prepareStatement(query)) {
+            statement.setDate(1, Date.valueOf(date));
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                count = resultSet.getInt(1);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return count;
+    }
+
 }
