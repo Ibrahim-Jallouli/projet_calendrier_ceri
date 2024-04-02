@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 02, 2024 at 01:10 PM
+-- Generation Time: Apr 02, 2024 at 01:27 PM
 -- Server version: 10.4.22-MariaDB
 -- PHP Version: 8.1.2
 
@@ -20,6 +20,267 @@ SET time_zone = "+00:00";
 --
 -- Database: `calceri`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `enseignant`
+--
+
+CREATE TABLE `enseignant` (
+  `id` int(11) NOT NULL,
+  `username` varchar(511) DEFAULT NULL,
+  `password` varchar(255) DEFAULT NULL,
+  `email` varchar(255) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `enseignant`
+--
+
+INSERT INTO `enseignant` (`id`, `username`, `password`, `email`) VALUES
+(1, 'FREDOUILLE Corinne', 'okay', 'FREDOUILLE Corinne@alumni.univ-avignon.fr'),
+(2, 'PUY CAZCARRA Emmanuel', NULL, 'PUY CAZCARRA Emmanuel@alumni.univ-avignon.fr'),
+(3, 'NABITZ Sophie', NULL, 'NABITZ Sophie@alumni.univ-avignon.fr'),
+(4, 'FREDOUILLE Corinne, JABAIAN Bassam', NULL, 'FREDOUILLE Corinne, JABAIAN Bassam@alumni.univ-avignon.fr'),
+(5, 'JABAIAN Bassam', NULL, 'JABAIAN Bassam@alumni.univ-avignon.fr'),
+(6, 'REY Carole', NULL, 'REY Carole@alumni.univ-avignon.fr'),
+(7, 'MARTIN Yannis', NULL, 'MARTIN Yannis@alumni.univ-avignon.fr'),
+(8, 'MARTIN Yannis, PUY CAZCARRA Emmanuel', NULL, 'MARTIN Yannis, PUY CAZCARRA Emmanuel@alumni.univ-avignon.fr'),
+(9, 'COSTA Jean-pierre', NULL, 'COSTA Jean-pierre@alumni.univ-avignon.fr'),
+(10, 'LABRAK Yanis', NULL, 'LABRAK Yanis@alumni.univ-avignon.fr'),
+(11, 'PELERIN Aurelien', NULL, 'PELERIN Aurelien@alumni.univ-avignon.fr'),
+(12, 'ROUVIER Mickael', NULL, 'ROUVIER Mickael@alumni.univ-avignon.fr'),
+(13, 'HADDAD Majed, VERNET Mathilde', NULL, 'HADDAD Majed, VERNET Mathilde@alumni.univ-avignon.fr'),
+(14, 'BROCHARD Marc', NULL, 'BROCHARD Marc@alumni.univ-avignon.fr'),
+(15, 'LEFEVRE Fabrice', NULL, 'LEFEVRE Fabrice@alumni.univ-avignon.fr'),
+(16, 'BENSLIMANE Abderrahim, BONASTRE Jean-Francois, FIGUEIREDO Rosa, FREDOUILLE Corinne, GOZLAN Philippe, HADDAD Majed, HAYEL Yezekael, HUET Stephane, JIMENEZ Tania, JOURLIN Pierre, LEFEVRE Fabrice, MORCHID Mohamed, NOCERA Pascal, PUY CAZCARRA Emmanuel, TORRES MORENO Juan manuel, VERNET Mathilde', NULL, 'BENSLIMANE Abderrahim, BONASTRE Jean-Francois, FIGUEIREDO Rosa, FREDOUILLE Corinne, GOZLAN Philippe, HADDAD Majed, HAYEL Yezekael, HUET Stephane, JIMENEZ Tania, JOURLIN Pierre, LEFEVRE Fabrice, MORCHID Mohamed, NOCERA Pascal, PUY CAZCARRA Emmanuel, TORRES'),
+(17, 'MORCHID Mohamed', NULL, 'MORCHID Mohamed@alumni.univ-avignon.fr'),
+(18, 'FERREIRA Emmanuel', NULL, 'FERREIRA Emmanuel@alumni.univ-avignon.fr'),
+(19, 'SALAS Daniel', NULL, 'SALAS Daniel@alumni.univ-avignon.fr'),
+(20, 'BONNEFOY Ludovic', NULL, 'BONNEFOY Ludovic@alumni.univ-avignon.fr'),
+(21, 'RONDIN Lilian', 'okay', 'RONDIN Lilian@alumni.univ-avignon.fr'),
+(22, 'CARIAS Patrick', NULL, 'CARIAS Patrick@alumni.univ-avignon.fr'),
+(23, 'CECILLON Noe', NULL, 'CECILLON Noe@alumni.univ-avignon.fr'),
+(24, 'AMALVY Arthur', 'okay', 'AMALVY Arthur@alumni.univ-avignon.fr'),
+(25, '', NULL, '@alumni.univ-avignon.fr'),
+(26, 'ATER MASTER INFO', NULL, 'ATER MASTER INFO@alumni.univ-avignon.fr'),
+(27, 'HUET Stephane', NULL, 'HUET Stephane@alumni.univ-avignon.fr'),
+(28, 'DHAUSSY Timothee', NULL, 'DHAUSSY Timothee@alumni.univ-avignon.fr'),
+(29, 'BENSLIMANE Abderrahim, LABATUT Vincent, ROUVIER Mickael', NULL, 'BENSLIMANE Abderrahim, LABATUT Vincent, ROUVIER Mickael@alumni.univ-avignon.fr'),
+(30, 'FIGUEIREDO Rosa, VERNET Mathilde', NULL, 'FIGUEIREDO Rosa, VERNET Mathilde@alumni.univ-avignon.fr'),
+(31, 'BENSLIMANE Abderrahim, FIGUEIREDO Rosa, HUET Stephane, JABAIAN Bassam, LABATUT Vincent, MATROUF Driss, ROUVIER Mickael, SPRIET Thierry', NULL, 'BENSLIMANE Abderrahim, FIGUEIREDO Rosa, HUET Stephane, JABAIAN Bassam, LABATUT Vincent, MATROUF Driss, ROUVIER Mickael, SPRIET Thierry@alumni.univ-avignon.fr'),
+(32, 'BENSLIMANE Abderrahim, COSTA Jean-pierre, DE PELLEGRINI Francesco, ELAZOUZI Rachid, ESTEVE Yannick, FIGUEIREDO Rosa, FREDOUILLE Corinne, GILLES Philippe, GOZLAN Philippe, GUEYE Serigne, HADDAD Majed, HAYEL Yezekael, HUET Stephane, JABAIAN Bassam, JOURLIN Pierre, LABATUT Vincent, LEFEVRE Fabrice, MATROUF Driss, NOCERA Pascal, ROUVIER Mickael, SPRIET Thierry, TORRES MORENO Juan manuel, VERNET Mathilde, ZHOU Fen', NULL, 'BENSLIMANE Abderrahim, COSTA Jean-pierre, DE PELLEGRINI Francesco, ELAZOUZI Rachid, ESTEVE Yannick, FIGUEIREDO Rosa, FREDOUILLE Corinne, GILLES Philippe, GOZLAN Philippe, GUEYE Serigne, HADDAD Majed, HAYEL Yezekael, HUET Stephane, JABAIAN Bassam, JOURLIN '),
+(33, 'BENSLIMANE Abderrahim, ROUVIER Mickael', NULL, 'BENSLIMANE Abderrahim, ROUVIER Mickael@alumni.univ-avignon.fr'),
+(34, 'BEILLON Jennifer, HUET Stephane', NULL, 'BEILLON Jennifer, HUET Stephane@alumni.univ-avignon.fr'),
+(35, 'FIGUEIREDO Rosa', NULL, 'FIGUEIREDO Rosa@alumni.univ-avignon.fr'),
+(36, 'LEFEVRE Fabrice, TORRES MORENO Juan manuel', NULL, 'LEFEVRE Fabrice, TORRES MORENO Juan manuel@alumni.univ-avignon.fr'),
+(37, 'HADDAD Majed, LEFEVRE Fabrice', NULL, 'HADDAD Majed, LEFEVRE Fabrice@alumni.univ-avignon.fr'),
+(38, 'LABATUT Vincent', NULL, 'LABATUT Vincent@alumni.univ-avignon.fr'),
+(39, 'GUEYE Serigne', NULL, 'GUEYE Serigne@alumni.univ-avignon.fr'),
+(40, 'MDHAFFAR Salima', NULL, 'MDHAFFAR Salima@alumni.univ-avignon.fr'),
+(41, 'VERNET Mathilde', NULL, 'VERNET Mathilde@alumni.univ-avignon.fr'),
+(42, 'TORRES MORENO Juan manuel', NULL, 'TORRES MORENO Juan manuel@alumni.univ-avignon.fr'),
+(43, 'HAYEL Yezekael', NULL, 'HAYEL Yezekael@alumni.univ-avignon.fr'),
+(44, 'ESTEVE Yannick', NULL, 'ESTEVE Yannick@alumni.univ-avignon.fr'),
+(45, 'test', 'test', 'test@test.com');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `etudiant`
+--
+
+CREATE TABLE `etudiant` (
+  `id` int(11) NOT NULL,
+  `username` varchar(50) DEFAULT NULL,
+  `password` varchar(255) DEFAULT NULL,
+  `formation_id` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `etudiant`
+--
+
+INSERT INTO `etudiant` (`id`, `username`, `password`, `formation_id`) VALUES
+(1, 'uapv2400431', 'Ibrahim', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `formation`
+--
+
+CREATE TABLE `formation` (
+  `id` int(11) NOT NULL,
+  `nom` varchar(255) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `formation`
+--
+
+INSERT INTO `formation` (`id`, `nom`) VALUES
+(1, 'ILSEN-CLA'),
+(2, 'ILSEN-ALT'),
+(3, 'AI-CLA'),
+(4, 'AI-ALT');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `matiere`
+--
+
+CREATE TABLE `matiere` (
+  `id` int(11) NOT NULL,
+  `nom` varchar(255) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `matiere`
+--
+
+INSERT INTO `matiere` (`id`, `nom`) VALUES
+(1, 'Reservation de salles'),
+(2, 'UCE 1 ARCHITECTURES CLOUD ET'),
+(3, 'UCE 2 ARCHITECTURES WEB'),
+(4, 'UCE 1 ANGLAIS (ORIENTE ENTREP'),
+(5, 'UCE 2 MANAGEMENT PAR LES PROC'),
+(6, 'UCE 3 GESTION DE PROJET'),
+(7, 'UCE 4 APPLICATION DE MSI'),
+(8, 'UCE 1 DESIGN PATTERN AVANCE'),
+(9, 'UCE 2 PROGRAMMATION PARALLELE'),
+(10, 'UCE 3 URBANISATION'),
+(11, 'UCE 4 APPLICATION DE CONCEPTI'),
+(12, 'UCE 1 PROJET'),
+(13, 'UCE 2 INSERTION PROFESSIONNEL'),
+(14, 'UCE 1 VEILLE TECHNOLOGIQUE'),
+(15, 'UE PROJET 2'),
+(16, 'UCE 4 APPLICATION ARCHITECTUR'),
+(17, 'UCE 1 TECHNIQUES DE TEST'),
+(18, 'UCE 1 SERVEURS D\'APPLICATION'),
+(19, 'UCE 2 MIDDLEWARE'),
+(20, 'UCE 3 APPLICATIONS ORIENTEES'),
+(21, 'UCE 2 ANGLAIS (ORIENTE TECHNI'),
+(22, 'UCE 2 PROTOTYPAGE ET INTERFAC'),
+(23, 'UCE 3 PROCESSUS DU DEVELOPPEM'),
+(24, 'Rentree specifique'),
+(25, 'UCE 1 INTRODUCTION A L\'INTELL'),
+(26, 'UCE 2 APPRENTISSAGE NON-SUPER'),
+(27, 'UCE 3 OPTIMISATION NON-LINEAI'),
+(28, 'UCE 4 TRAITEMENT AUTOMATIQUE'),
+(29, 'UCE 2 APPROCHES NEURONALES'),
+(30, 'UCE 1 MODELES STOCHASTIQUES'),
+(31, 'UCE 3 APPLICATION IA');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `memo`
+--
+
+CREATE TABLE `memo` (
+  `id` int(11) NOT NULL,
+  `description` text DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `memo`
+--
+
+INSERT INTO `memo` (`id`, `description`) VALUES
+(1, 'reunion de rentree des alternants'),
+(2, ''),
+(3, 'Evaluation'),
+(4, 'Presentation des projets de M1 classiques'),
+(5, '2eme rencontre intermediaire des projets de M1 classiques'),
+(6, '1ere rencontre intermediaire des projets de M1 classiques'),
+(7, 'NE PAS DEPLACER'),
+(8, 'SOUTENANCE'),
+(9, 'Soutenances de projet Master CERI'),
+(10, '1ere rencontre'),
+(11, 'TP3'),
+(12, 'TP4'),
+(13, 'TP2'),
+(14, 'TP6'),
+(15, 'TP1'),
+(16, 'TP5'),
+(17, 'TP7'),
+(18, 'TP8'),
+(19, 'TP9'),
+(20, 'TP10'),
+(21, '2eme rencontre'),
+(22, 'entreprise'),
+(23, 'Reunion alternance mi-semestre'),
+(24, 'Reunion mi-semestre alternance'),
+(25, 'reunion de rentree du master informatique'),
+(26, 'reunion d\'information Ada Lovelace'),
+(27, 'ceremonie de remise des diplômes'),
+(28, 'soutenance alternance'),
+(29, 'Entretiens individuels'),
+(30, 'salon alternance 2024'),
+(31, 'semaine femmes en sciences'),
+(32, 'Voyage scolaire'),
+(33, 'VISIO'),
+(34, 'QCM'),
+(35, 'Seminaire de recherche LIA - CMI UNIQUEMENT'),
+(36, 'AGORA - CMI UNIQUEMENT'),
+(37, 'Seminaire recherche LIA - CMI UNIQUEMENT'),
+(38, 'Presentation de l\'alternance'),
+(39, 'Informations pratiques sur l\'alternance');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `salle`
+--
+
+CREATE TABLE `salle` (
+  `id` int(11) NOT NULL,
+  `nom` varchar(255) DEFAULT NULL,
+  `disponible` tinyint(1) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `salle`
+--
+
+INSERT INTO `salle` (`id`, `nom`, `disponible`) VALUES
+(1, 'Amphi Ada', NULL),
+(2, 'Amphi Blaise', NULL),
+(3, 'CISCO = C 133 reseaux', NULL),
+(4, 'Stat 2 = Info - C 136', NULL),
+(5, 'Stat 3 = Info - C 135', NULL),
+(6, 'S3 = C 036', NULL),
+(7, 'S5 = C 024', NULL),
+(8, 'S4 = C 034', NULL),
+(9, 'S2 = C 040', NULL),
+(10, 'S6 = C 022', NULL),
+(11, 'Stat 1 = Info - C 137', NULL),
+(12, 'Stat9 = Info - C 026', NULL),
+(13, 'Stat 5 = Info - C 130', NULL),
+(14, 'Stat 6 = Info - C 129', NULL),
+(15, 'Stat 5 = Info - C 130, Stat 6 = Info - C 129', NULL),
+(16, 'Stat 8 = Info - C 127, Stat9 = Info - C 026', NULL),
+(17, 'Stat 4 = Info - C 131', NULL),
+(18, 'Stat 6 = Info - C 129, Stat 7 = Info - C 128', NULL),
+(19, 'Stat 1 = Info - C 137, Stat 2 = Info - C 136', NULL),
+(20, 'S7 = C 032', NULL),
+(21, 'Stat 8 = Info - C 127', NULL),
+(22, 'RES = C 132 Reseaux', NULL),
+(23, 'CERI, Stat 2 = Info - C 136, Stat 3 = Info - C 135', NULL),
+(24, 'AGRB020 ( HDMI ), AGRB021 ( HDMI ), AGRB022 ( HDMI ), AGRB023 ( HDMI )', NULL),
+(25, 'S2 = C 040, S3 = C 036, S4 = C 034, S7 = C 032', NULL),
+(26, 'Stat 7 = Info - C 128', NULL),
+(27, 'S2 BIS = C 038', NULL),
+(28, '', NULL),
+(29, 'Amphi Ada, Amphi Blaise, S1 = C 042 Nodes, S2 = C 040, S2 BIS = C 038, S3 = C 036, S4 = C 034, S5 = C 024, S6 = C 022, S7 = C 032, S8 = C 030', NULL),
+(30, 'S5 = C 024, S6 = C 022', NULL),
+(31, 'Amphi Ada, Amphi Blaise, S1 = C 042 Nodes, S2 = C 040, S2 BIS = C 038, S3 = C 036, S4 = C 034, S5 = C 024, S6 = C 022, S7 = C 032, S8 = C 030, Stat 1 = Info - C 137, Stat 6 = Info - C 129, Stat 7 = Info - C 128', NULL),
+(32, 'Stat 1 = Info - C 137, Stat 2 = Info - C 136, Stat 7 = Info - C 128', NULL),
+(33, 'S1 = C 042 Nodes', NULL),
+(34, 'S8 = C 030', NULL);
 
 -- --------------------------------------------------------
 
@@ -1174,9 +1435,72 @@ INSERT INTO `seance` (`uid`, `dtStart`, `dtEnd`, `matiere_id`, `enseignant_id`, 
 ('Cours-82548-40-M1-IA-IL-CLA-Index-Education', '2024-03-25 11:30:00', '2024-03-25 12:30:00', 1, 27, 2, 3, 1, 38),
 ('Cours-82553-42-M1-IA-IL-CLA-Index-Education', '2024-04-12 10:30:00', '2024-04-12 11:30:00', 1, 27, 1, 3, 1, 39);
 
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `type`
+--
+
+CREATE TABLE `type` (
+  `id` int(11) NOT NULL,
+  `name` varchar(50) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `type`
+--
+
+INSERT INTO `type` (`id`, `name`) VALUES
+(1, ''),
+(2, 'CM'),
+(3, 'TP'),
+(4, 'Evaluation'),
+(5, 'TD'),
+(6, 'CM/TD'),
+(7, 'Oraux'),
+(8, 'Rattrapage'),
+(9, 'Conference');
+
 --
 -- Indexes for dumped tables
 --
+
+--
+-- Indexes for table `enseignant`
+--
+ALTER TABLE `enseignant`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `etudiant`
+--
+ALTER TABLE `etudiant`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `fk_etudiant_formation` (`formation_id`);
+
+--
+-- Indexes for table `formation`
+--
+ALTER TABLE `formation`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `matiere`
+--
+ALTER TABLE `matiere`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `memo`
+--
+ALTER TABLE `memo`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `salle`
+--
+ALTER TABLE `salle`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `seance`
@@ -1190,8 +1514,66 @@ ALTER TABLE `seance`
   ADD KEY `fk_type_id` (`type_id`);
 
 --
+-- Indexes for table `type`
+--
+ALTER TABLE `type`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `enseignant`
+--
+ALTER TABLE `enseignant`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=46;
+
+--
+-- AUTO_INCREMENT for table `etudiant`
+--
+ALTER TABLE `etudiant`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `formation`
+--
+ALTER TABLE `formation`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT for table `matiere`
+--
+ALTER TABLE `matiere`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
+
+--
+-- AUTO_INCREMENT for table `memo`
+--
+ALTER TABLE `memo`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
+
+--
+-- AUTO_INCREMENT for table `salle`
+--
+ALTER TABLE `salle`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
+
+--
+-- AUTO_INCREMENT for table `type`
+--
+ALTER TABLE `type`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+
+--
 -- Constraints for dumped tables
 --
+
+--
+-- Constraints for table `etudiant`
+--
+ALTER TABLE `etudiant`
+  ADD CONSTRAINT `fk_etudiant_formation` FOREIGN KEY (`formation_id`) REFERENCES `formation` (`id`);
 
 --
 -- Constraints for table `seance`
