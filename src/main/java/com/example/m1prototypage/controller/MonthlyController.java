@@ -85,6 +85,4 @@ public class MonthlyController implements Initializable, CalendarViewController 
     }
 
 
-
-    // Additional methods here
 }
