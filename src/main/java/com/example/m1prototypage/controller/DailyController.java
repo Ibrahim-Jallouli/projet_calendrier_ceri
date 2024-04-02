@@ -166,8 +166,8 @@ public class DailyController implements Initializable, CalendarViewController {
         for (int i = 1; i < scheduleGrid.getRowCount(); i++) {
             for (int j = 1; j < scheduleGrid.getColumnCount(); j++) {
                 Region cell = new Region();
-                String color = (i % 2 == 0) ? "white" : "#f0f5f5";
-                cell.setStyle("-fx-background-color: " + color + ";");
+                String cssClass = (i % 2 == 0) ? "row-light" : "row-dark";
+                cell.getStyleClass().add(cssClass);
                 scheduleGrid.add(cell, j, i);
                 GridPane.setValignment(cell, VPos.TOP);
             }

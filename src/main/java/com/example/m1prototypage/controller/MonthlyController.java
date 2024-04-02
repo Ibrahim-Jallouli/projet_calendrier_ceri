@@ -6,7 +6,6 @@ import javafx.fxml.Initializable;
 import javafx.geometry.HPos;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
-
 import java.net.URL;
 import java.time.DayOfWeek;
 import java.time.LocalDate;

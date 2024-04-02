@@ -18,9 +18,7 @@
             fx:controller="com.example.m1prototypage.controller.CalendarController"
             stylesheets="@../css/style.css">
 
-    <VBox prefHeight="600.0" prefWidth="800.0" spacing="10.0" style="-fx-background-color: #F5F5F5; -fx-padding: 10px;"
-          stylesheets="@../css/style.css">
-        <!-- Container for the current user label, ensuring it aligns to the top right -->
+    <VBox prefHeight="600.0" prefWidth="800.0" spacing="10.0" styleClass="schedule-container">
         <HBox alignment="TOP_RIGHT">
             <Region HBox.hgrow="ALWAYS" /> <!-- This Region pushes the following content to the right -->
             <Label fx:id="currentUserLabel" text="User: " styleClass="user-label" />
@@ -101,8 +99,8 @@
         </HBox>
 
         <!-- Main content of the schedule -->
-        <VBox alignment="CENTER" spacing="10.0" style="-fx-background-color: #FFFFFF; -fx-padding: 10px;">
-            <Label style="-fx-font-size: 18pt; -fx-font-weight: bold;" text="Emploi du temps" />
+        <VBox alignment="CENTER" spacing="10.0" styleClass="schedule-header">
+            <Label styleClass="schedule-title" text="Emploi du temps" />
             <!-- Container for dynamic views -->
             <StackPane fx:id="scheduleContainer" />
             <VBox.margin>

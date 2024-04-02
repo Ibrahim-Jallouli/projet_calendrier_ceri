@@ -167,16 +167,17 @@ public class WeeklyController implements Initializable,CalendarViewController {
                     .collect(Collectors.toList());
         }
 
-            for (int i = 1; i < scheduleGrid.getRowCount(); i++) {
-                for (int j = 1; j < scheduleGrid.getColumnCount(); j++) {
-                    Region cell = new Region();
-                    String color = (i % 2 == 0) ? "white" : "#f0f5f5";
-                    cell.setStyle("-fx-background-color: " + color + ";");
-                    scheduleGrid.add(cell, j, i);
-                    GridPane.setValignment(cell, VPos.TOP);
-                }
+        for (int i = 1; i < scheduleGrid.getRowCount(); i++) {
+            for (int j = 1; j < scheduleGrid.getColumnCount(); j++) {
+                Region cell = new Region();
+                String cssClass = (i % 2 == 0) ? "row-light" : "row-dark";
+                cell.getStyleClass().add(cssClass);
+                scheduleGrid.add(cell, j, i);
+                GridPane.setValignment(cell, VPos.TOP);
             }
-            for (Seance seance : seances) {
+        }
+
+        for (Seance seance : seances) {
                 addSeanceToGrid(seance);
             }
         highlightCurrentHourCell(currentWeekStart, weekEnd);
@@ -225,7 +226,7 @@ public class WeeklyController implements Initializable,CalendarViewController {
         // Add the hour cell before adding the seance pane
         // Add seance details to the pane
         Label typeLabel = new Label(seance.getType().getNom());
-        typeLabel.setStyle("-fx-font-weight: bold; -fx-text-fill: blue;");
+        typeLabel.getStyleClass().add("type-label");
         StackPane.setAlignment(typeLabel, Pos.BOTTOM_RIGHT);
         StackPane.setMargin(typeLabel, new Insets(0, 5, 5, 0));
         seancePane.getChildren().addAll(seanceDetails, typeLabel);

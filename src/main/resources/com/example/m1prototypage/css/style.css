@@ -1,4 +1,10 @@
 /* Style for the day headers */
+.schedule-container {
+    -fx-background-color: #F5F5F5; /* Light grey background */
+    -fx-padding: 10px; /* Padding around the VBox */
+}
+
+
 .day-header {
     -fx-font-weight: bold;
     -fx-alignment: center;
@@ -52,6 +58,17 @@
     -fx-background-radius: 5;
 }
 
+/* Default light row color */
+.row-light {
+    -fx-background-color: white;
+}
+
+/* Alternate row color */
+.row-dark {
+    -fx-background-color: #f0f5f5;
+}
+
+
 .seance-red {
     -fx-background-color: #e5acac;
     -fx-border-color: #a1a1a1;
@@ -83,29 +100,160 @@
     -fx-font-size: 14px; /* Font size */
 }
 
-/* Styles pour le mode sombre */
-.dark-mode .root{
-    -fx-background-color: black;
-    -fx-text-fill: white;
-
-
+.schedule-header {
+    -fx-background-color: #FFFFFF;
+    -fx-padding: 10px;
 }
 
-.dark-mode .button {
-    -fx-background-color: white;
-    -fx-text-fill: black;
+.schedule-title {
+    -fx-font-size: 18pt;
+    -fx-font-weight: bold;
+}
+
+.schedule-container-margin {
+    -fx-top: 15px;
+}
+
+
+/* Base dark mode styles, adjusting background and text colors */
+.dark-mode .root {
+    -fx-background-color: #121212;
+    -fx-text-fill: #E0E0E0;
+}
+
+/* Adapting specific components for dark mode */
+.dark-mode .day-header, .dark-mode .hour-label, .dark-mode .seance-label, .dark-mode .user-label {
+    -fx-text-fill: #E0E0E0; /* Lighter text for readability */
+}
+
+.dark-mode .vertical-separator, .dark-mode .day-separator {
+    -fx-background-color: #333333; /* Darker separators for subtlety */
+}
+
+.dark-mode .seance-red, .dark-mode .seance-blue, .dark-mode .seance-yellow {
+    -fx-background-color: #2E2E2E; /* Darker background for seance elements */
+    -fx-border-color: #444444; /* Adjusted border color for contrast */
+}
+.dark-mode .seance-pane {
+    -fx-background-color: #586758; /* Darker background for seance pane */
+    -fx-border-color: #444444; /* Adjusted border color for contrast */
+}
+
+/* Adjusting row colors for alternating effect in dark mode */
+.dark-mode .row-light {
+    -fx-background-color: #1E1E1E;
+}
+
+.dark-mode .row-dark {
+    -fx-background-color: #2A2A2A;
+}
+
+.dark-mode .schedule-header {
+    -fx-background-color: #222222; /* Dark background for the schedule header */
+    -fx-text-fill: #E0E0E0; /* Ensuring text is readable */
+}
+
+.dark-mode .time-marker {
+    -fx-background-color: #be5c5a; /* Bright color for visibility, adjust if too bright */
+}
+
+.dark-mode .schedule-title {
+    -fx-text-fill: #E0E0E0; /* Light text for visibility */
 }
 
 .dark-mode .combo-box {
-    -fx-background-color: #FFFFFF;
-    -fx-text-fill: #000000;
+    -fx-background-color: #333;
+    -fx-mark-color: #AAA; /* This is for the arrow of the combo box */
+    -fx-border-color: #555;
+    -fx-text-fill: #DDD;
 }
 
 
-.right-aligned-button {
-    -fx-alignment: TOP-RIGHT;
+.dark-mode .combo-box .list-cell {
+    -fx-background-color: #333;
+    -fx-text-fill: #DDD;
+}
+.dark-mode .combo-box .list-cell :hover {
+    -fx-background-color: #444;
 }
 
 
+.dark-mode .pane, .dark-mode .vbox, .dark-mode .hbox, .dark-mode .stack-pane {
+    -fx-background-color: #222;
+}
 
+.dark-mode .label {
+    -fx-text-fill: #CCC; /* Light grey text for readability */
+}
+
+.dark-mode .text-field {
+    -fx-background-color: transparent;
+    -fx-text-fill: #DDD;
+    -fx-prompt-text-fill: #555;
+}
+
+/* Style for button in dark mode */
+.dark-mode .button {
+    -fx-background-color: #2A2A2A; /* Dark background for buttons */
+    -fx-text-fill: #DDD; /* Light color for the text */
+    -fx-border-color: #505050; /* Subtle border color */
+    -fx-border-width: 3; /* Border width */
+    -fx-border-radius: 4; /* Border radius for rounded corners */
+}
+
+/* Hover effect for button in dark mode */
+.dark-mode .button:hover {
+    -fx-border-color: #226c93; /* Light blue background when hovered */
+    -fx-text-fill: #FFFFFF; /* White text when hovered */
+}
+
+
+.dark-mode .scroll-bar {
+    -fx-background-color: #333;
+}
+
+.dark-mode .scroll-bar .thumb {
+    -fx-background-color: #646464;
+}
+
+.dark-mode .scroll-bar .thumb:hover {
+    -fx-background-color: #6e6e6e;
+}
+
+
+.dark-mode .seance-red {
+    -fx-background-color: #5c2020; /* Darker shade of red */
+    -fx-text-fill: #E0E0E0; /* Light text for dark backgrounds */
+    -fx-border-color: #442020; /* Dark border for depth */
+}
+
+.dark-mode .seance-blue {
+    -fx-background-color: #2a5c6c; /* Darker shade of blue */
+    -fx-text-fill: #E0E0E0;
+    -fx-border-color: #204552;
+}
+
+.dark-mode .seance-yellow {
+    -fx-background-color: #5c4a20; /* Darker shade of yellow/brown */
+    -fx-text-fill: #E0E0E0;
+    -fx-border-color: #443920;
+}
+
+
+.dark-mode .schedule-container {
+    -fx-background-color: #1a1a1a; /* Slightly different from the main background for depth */
+}
+
+
+/* Light Mode */
+.type-label {
+    -fx-font-weight: bold;
+    -fx-text-fill: blue; /* or any other color you prefer */
+}
+
+/* Dark Mode */
+.dark-mode .type-label {
+    -fx-font-weight: bold;
+    -fx-text-fill: #81a5ad; /* Lighter blue for better visibility on dark backgrounds */
+}
 
